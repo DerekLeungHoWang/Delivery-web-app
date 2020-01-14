@@ -8,16 +8,82 @@
   color: #000000;
 }
 /*===============INDEX ENDS=================*/
+/*===============italian theme BEGINS=================*/
+.theme-rest-pic{
+  width: 100px !important;
+  height: 100px !important;
+}
+.box-part{
+  margin: 30px 30px;
+}
+.rest-box{cursor: pointer;}
+.box-part img{
+  margin-top: 15px;
+}
+
+.box-part:hover{
+ 
+  box-shadow: 0 0 6px #4183D7;
+  border-radius: 10px;
+  transition: all 0.5s ease-in-out;
+}
+/*===============italian theme ENDS=================*/
+
+
+
 /*===============CART BEGINS=================*/
 #cart-img{
   width: 100px;
   height: 100px;
 }
+
+.checkout-btn 
+{
+  
+
+
+  color: #fff;
+
+  background: rgba(3, 3, 3, 0.6);
+  animation: shadow-pulse 1s 3;
+  padding:5px;
+  border-radius: 18px;
+}
+@keyframes shadow-pulse
+{
+  0% {
+    box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 35px rgba(0, 0, 0, 0);
+  }
+}
+
+.round-button{
+
+  padding:5px;
+  border-radius: 18px;
+}
 /*===============CART ENDS=================*/
 /*===============ABOUT BEGIN=================*/
 #aboutPage{
   color: #000 !important;
+  text-align: center;
+  margin-top: 30px;
 }
+
+#about-1{
+  height: 500px;
+}
+
+/*======slider===*/
+
+
+
+
+
+
+
 /*===============ABOUT END=================*/
 
 

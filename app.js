@@ -44,10 +44,10 @@ app.get('/',(req,res)=>{
     res.render("index");
 })
 
+//===================================ITALIAN ROUTE============================
 app.get('/italian',(req,res)=>{
     res.render("italian");
 })
-
 app.get('/italian/italianMenu',(req,res)=>{
     res.render("italianMenu");
 })
