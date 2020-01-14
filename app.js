@@ -44,9 +44,16 @@ app.get('/',(req,res)=>{
     res.render("index");
 })
 
-app.get('/pizza',(req,res)=>{
-    res.render("pizzaIndex");
+app.get('/italian',(req,res)=>{
+    res.render("italian");
 })
+
+app.get('/italian/italianMenu',(req,res)=>{
+    res.render("italianMenu");
+})
+
+
+
 app.get('/about',(req,res)=>{
     res.render("about");
 })

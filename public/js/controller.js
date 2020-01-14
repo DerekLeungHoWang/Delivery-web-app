@@ -14,7 +14,7 @@ var ordersTemplate = Handlebars.compile(
                             <td class="cart_product_img d-flex align-items-center">
                             <h5>productID: {{id}}</h6>
                             <span> &nbsp; &nbsp;</span>
-                            <a href="#"><img src="img/cartPizza1.jpg" alt="Product"></a>
+                            <a href="#"><img id="cart-img" src="img/cartPizza4.jpg" alt="Product"></a>
                             <h6>{{content}} </h6>
                                 
                             </td>
