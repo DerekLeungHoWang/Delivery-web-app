@@ -1,3 +1,4 @@
+//Require modules
 const fs = require('fs')
 const express = require('express');
 const hbs = require("express-handlebars");
@@ -40,6 +41,7 @@ console.log("LINE34, app.js");
 console.log(path.join(__dirname, config.orders));
 app.use('/api/orders', new OrderRouter(orderService).router());
 
+//app.get
 app.get('/',(req,res)=>{
     res.render("index");
 })
