@@ -65,6 +65,10 @@ app.get('/login',(req,res)=>{
     res.render("logSign");
 })
 
+app.get('/jp',(req, res)=>{
+    res.render("japanese");
+})
+
 app.get('/cart/checkout',(req,res)=>{
     res.render("checkout");
 })
