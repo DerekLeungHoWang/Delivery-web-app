@@ -14,7 +14,7 @@ var ordersTemplate = Handlebars.compile(
                             <td class="cart_product_img d-flex align-items-center">
                             <h5>productID: {{id}}</h6>
                             <span> &nbsp; &nbsp;</span>
-                            <a href="#"><img src="img/cartPizza1.jpg" alt="Product"></a>
+                            <a href="#"><img id="cart-img" src="img/cartPizza4.jpg" alt="Product"></a>
                             <h6>{{content}} </h6>
                                 
                             </td>
@@ -564,6 +564,13 @@ function createTweenScrubber(tween, seekSpeed) {
 //          CONTROLLABLE IMAGE TRANSITION ENDS
 ////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////
+//          sliders about page BEGINS
+////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+//          sliders about page ENDS
+////////////////////////////////////////////////////////////
 
 
 //===============Counter===========================//
@@ -586,3 +593,11 @@ function createTweenScrubber(tween, seekSpeed) {
   });
  })(jQuery);
   //===============Counter-END===========================//
+
+
+//===============smooth scroll-BEGINS===========================//
+  
+var scroll = new SmoothScroll('a[href*="#"]', {
+    speed: 1500
+  });
+  //===============smooth scroll-END===========================//

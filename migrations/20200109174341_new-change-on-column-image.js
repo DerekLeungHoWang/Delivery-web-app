@@ -1,12 +1,8 @@
 exports.up = function(knex, Promise) {
-    return knex.schema.table('orders', function(t) {
-        t.string('imgPath');
-    });
+    console.log('ignored file');
 };
 
 exports.down = function(knex, Promise) {
-    return knex.schema.table('orders', function(t) {
-        t.dropColumn('imgPath');
-    });
+    console.log('ignored file');
 };
 
