@@ -593,3 +593,11 @@ function createTweenScrubber(tween, seekSpeed) {
   });
  })(jQuery);
   //===============Counter-END===========================//
+
+
+//===============smooth scroll-BEGINS===========================//
+  
+var scroll = new SmoothScroll('a[href*="#"]', {
+    speed: 1500
+  });
+  //===============smooth scroll-END===========================//

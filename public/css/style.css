@@ -14,7 +14,12 @@
   height: 100px !important;
 }
 .box-part{
-  margin: 30px 30px;
+  cursor: pointer;
+  /* margin: 30px 30px; */
+}
+.row-rest{
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .rest-box{cursor: pointer;}
 .box-part img{
@@ -493,6 +498,7 @@ transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   font-family:sans-serif;
   color:#fff;
   overflow:hidden;
+  cursor: pointer;
 }
 
 

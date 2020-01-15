@@ -15,6 +15,7 @@
     "express-basic-auth": "^1.2.0",
     "express-handlebars": "^3.1.0",
     "knex": "^0.20.7",
-    "pg": "^7.17.0"
+    "pg": "^7.17.0",
+    "smooth-scroll": "^16.1.1"
   }
 }
