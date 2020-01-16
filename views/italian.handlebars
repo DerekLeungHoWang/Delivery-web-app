@@ -12,14 +12,15 @@
 {{!-- <a href="/italian/italianMenu"></a> --}}
 
 
-    <div id="bazinga" class="container-fluid  ">
-        
+    <div id="bazinga" class="container-fluid">
+        {{#each restaurants}}
         <div class="row row-rest">
+
             <a href="/italianmenu">
             <div class="box-part text-center col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <img class="theme-rest-pic " src="/img/cartPizza1.jpg" alt="">
                 <div class="title">
-                    <h4>Pizzahut</h4>
+                    <h4>{{restaurants_name}}</h4>
                 </div>
                 <div class="text">
                     <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta
@@ -27,33 +28,8 @@
                 </div>
             </div>
             <a/>
-
-            <div class="box-part text-center col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                <img class="theme-rest-pic" src="/img/cartPizza1.jpg" alt="">
-                <div class="title">
-                    <h4>Pizzahut</h4>
-                </div>
-                <div class="text">
-                    <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta
-                        ocurreret qui ad.</span>
-                </div>
-            </div>
-
-            <div class="box-part text-center col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                <img class="theme-rest-pic" src="/img/cartPizza1.jpg" alt="">
-                <div class="title">
-                    <h4>Pizzahut</h4>
-                </div>
-                <div class="text">
-                    <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta
-                        ocurreret qui ad.</span>
-                </div>
-            </div>
-
-
-
         </div>
-
+        {{#each restaurants}}
     </div>
 
 

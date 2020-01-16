@@ -6,8 +6,10 @@ const express = require("express");
 const hbs = require("express-handlebars");
 const app = express();
 const path = require("path");
-// const OrderService = require("./service/OrderService");
-// const OrderRouter = require("./router/OrderRouter");
+
+
+//================================//
+
 const bodyParser = require("body-parser");
 const router = require("./router/router")(express);
 // const AuthChallenger = require('./AuthChallenger.js')
@@ -25,16 +27,12 @@ setupPassport(app);
 app.engine("handlebars", hbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// const config = require("./stores/config.json")["development"];
-//body-parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static("public"));
 app.use(express.static("router"));
 
-//app.use ROUTER
-app.use("/", router);
 //app.use(sesssion)
 app.use(
   session({
@@ -42,22 +40,27 @@ app.use(
     resave: false,
     saveUninitialized: true
   })
-);
-
-//basic-auth
-// app.use(basicAuth({
-//     authorizer: AuthChallenger(knex),
-//     challenge: true,
-//     authorizeAsync: true,
-//     realm: 'Restaurant Application With Knex'
-// }));
-
-//routing
+  );
+  //======================================AUTH=================//
+  app.use("/", router);
+  
+  //======================================ROUTERS================//
+  //Restaurant Service and Router
+  const RestService = require('./service/RestService')
+  const RestRouter = require('./router/RestRouter');
+  const restService = new RestService(knex);
+  app.use('/api/restaurants', new RestRouter(restService).router()); 
+  //
+  
+ 
+//Orders Service and Router
+// const OrderService = require("./service/OrderService");
+// const OrderRouter = require("./router/OrderRouter");
 // const orderService = new OrderService(knex);
-
-console.log("LINE34, app.js");
-// console.log(path.join(__dirname, config.orders));
 // app.use("/api/orders", new OrderRouter(orderService).router());
+// console.log(path.join(__dirname, config.orders));
+
+
 
 // //app.get
 app.get("/", (req, res) => {
@@ -66,10 +69,27 @@ app.get("/", (req, res) => {
 
 // //===================================ITALIAN ROUTE============================
 app.get("/italian", (req, res) => {
-  res.render("italian");
+  console.log('line 74 running')
+
+    restService.list().then((data)=>{
+
+      console.log(data)
+
+
+      res.render('italian', 
+      {
+        restaurants_name: data[0].restaurants_name,
+        opening_hours: data[0].opening_hours,
+        cuisine: data[0].cuisine, 
+        path_to_img: data[0].path_to_img
+      }
+      )
+    })
 });
+
 app.get("/italian/italianMenu", (req, res) => {
   res.render("italianMenu");
+ 
 });
 
 app.get("/about", (req, res) => {
@@ -83,9 +103,6 @@ app.get("/cart", (req, res) => {
 app.get("/contact", (req, res) => {
   res.render("contact");
 });
-// app.get('/login',(req,res)=>{
-//     res.render("logSign");
-// })
 
 app.get("/jp", (req, res) => {
   res.render("japanese");
