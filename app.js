@@ -78,10 +78,10 @@ app.get("/italian", (req, res) => {
 
       res.render('italian', 
       {
-        restaurants_name: data[0].restaurants_name,
-        opening_hours: data[0].opening_hours,
-        cuisine: data[0].cuisine, 
-        path_to_img: data[0].path_to_img
+        restaurants_name: data.restaurants_name,
+        opening_hours: data.opening_hours,
+        cuisine: data.cuisine, 
+        path_to_img: data.path_to_img
       }
       )
     })
@@ -119,6 +119,6 @@ const options = {
   key: fs.readFileSync("./localhost.key")
 };
 
-https.createServer(options, app).listen(3000);
+https.createServer(options, app).listen(2000);
 
 module.exports = app;
