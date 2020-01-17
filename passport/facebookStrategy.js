@@ -34,7 +34,7 @@ module.exports = (passport) => {
         if (userResult == 0) {
           let user = {
             facebookID: profile.id,
-            email: profile.displayName,
+            email: profile._json.email,
             accessToken: accessToken
           };
 
