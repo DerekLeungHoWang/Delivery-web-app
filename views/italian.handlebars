@@ -1,60 +1,38 @@
 <section class="notebook-hero">
     <a data-scroll href="#bazinga">
-        <h1 id="pizza-text" >
-        <span data-text="P">P</span>
-        <span data-text="I">A</span>
-        <span data-text="Z">S</span>
-        <span data-text="Z">T</span>
-        <span data-text="A">A</span>
-    </h1>
+        <h1 id="pizza-text">
+            <span data-text="P">P</span>
+            <span data-text="I">A</span>
+            <span data-text="Z">S</span>
+            <span data-text="Z">T</span>
+            <span data-text="A">A</span>
+        </h1>
     </a>
 </section>
 {{!-- <a href="/italian/italianMenu"></a> --}}
 
+{{#each restaurants}}
+<div id="bazinga" class="container-fluid">
 
-    <div id="bazinga" class="container-fluid  ">
-        
-        <div class="row row-rest">
-            <a href="/italianmenu">
+    <div class="row row-rest">
+
+        <a href="/italian/italianmenu">
             <div class="box-part text-center col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <img class="theme-rest-pic " src="/img/cartPizza1.jpg" alt="">
                 <div class="title">
-                    <h4>Pizzahut</h4>
+                    <h4>{{this}}</h4>
                 </div>
                 <div class="text">
-                    <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta
-                        ocurreret qui ad.</span>
+                    <span>specializes in the freshest fish and seafood prepared with
+                        Latino – Caribbean flair, and features a wonderful oyster and
+                        ceviche bar in front of the open kitchen. </span>
                 </div>
             </div>
-            <a/>
-
-            <div class="box-part text-center col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                <img class="theme-rest-pic" src="/img/cartPizza1.jpg" alt="">
-                <div class="title">
-                    <h4>Pizzahut</h4>
-                </div>
-                <div class="text">
-                    <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta
-                        ocurreret qui ad.</span>
-                </div>
-            </div>
-
-            <div class="box-part text-center col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                <img class="theme-rest-pic" src="/img/cartPizza1.jpg" alt="">
-                <div class="title">
-                    <h4>Pizzahut</h4>
-                </div>
-                <div class="text">
-                    <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta
-                        ocurreret qui ad.</span>
-                </div>
-            </div>
-
-
-
-        </div>
-
+            <a />
     </div>
+</div>
+
+{{/each}}
 
 
 
