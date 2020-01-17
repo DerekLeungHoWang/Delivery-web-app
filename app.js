@@ -4,10 +4,8 @@ const https = require("https");
 
 const express = require("express");
 const hbs = require("express-handlebars");
-const handlebars = require('handlebars')
 const app = express();
 const path = require("path");
-
 
 //================================//
 
@@ -20,7 +18,7 @@ const knexConfig = require("./knexfile").development;
 const knex = require("knex")(knexConfig);
 
 //require login modules
-const setupPassport = require('./passport/initpassport');
+const setupPassport = require("./passport/initpassport");
 const session = require("express-session");
 setupPassport(app);
 
@@ -41,27 +39,38 @@ app.use(
     resave: false,
     saveUninitialized: true
   })
-  );
-  //======================================AUTH=================//
-  app.use("/", router);
-  
-  //======================================ROUTERS================//
-  //Restaurant Service and Router
-  const RestService = require('./service/RestService')
-  const RestRouter = require('./router/RestRouter');
-  const restService = new RestService(knex);
-  app.use('/api/restaurants', new RestRouter(restService).router()); 
-  //
-  
- 
-//Orders Service and Router
+);
+
+//app.use AuthChallenger
+// app.use(basicAuth({
+//   authorizeAsync: true,
+//   authorizer: AuthChallenger(knex),
+//   challenge: true,
+//   realm: 'knex'
+// }));
+
+//======================================AUTH=================//
+app.use("/", router);
+
+//======================================ROUTERS================//
+//===============Restaurant Service and Router//
+const RestService = require("./service/RestService");
+const RestRouter = require("./router/RestRouter");
+const restService = new RestService(knex);
+app.use("/api/restaurants", new RestRouter(restService).router());
+//
+
+// ================Orders Service and Router
 // const OrderService = require("./service/OrderService");
 // const OrderRouter = require("./router/OrderRouter");
 // const orderService = new OrderService(knex);
 // app.use("/api/orders", new OrderRouter(orderService).router());
-// console.log(path.join(__dirname, config.orders));
 
-
+//foodItemService and Router//
+const FoodItemService = require("./service/FoodItemService");
+const FoodItemRouter = require("./router/FoodItemRouter");
+const foodItemService = new FoodItemService(knex);
+app.use("/api/food_item", new FoodItemRouter(foodItemService).router());
 
 // //app.get
 app.get("/", (req, res) => {
@@ -70,31 +79,22 @@ app.get("/", (req, res) => {
 
 // //===================================ITALIAN ROUTE============================
 app.get("/italian", (req, res) => {
-  console.log('line 74 running')
+  console.log("line 74 running");
 
-    restService.list().then((data)=>{
-      
-    
-      let restaurants_name = data.map((rows)=>{return rows.restaurants_name})
-      console.log(restaurants_name);
-      
-     
-      
-      res.render('italian', 
-      {
-        restaurants:{
-          restaurants_name: restaurants_name,
-          
-        }
-       
-      }
-      )
-    })
+  restService.list().then(data => {
+    res.render("italian", {
+      italiandata: data
+    });
+  });
 });
-
-app.get("/italian/italianMenu", (req, res) => {
-  res.render("italianMenu");
- 
+//Italian restaurants dynamic render
+app.get("/italian/:restaurantMenu", (req, res) => {
+  console.log(req.params);
+  foodItemService.list(req.params.restaurantMenu).then(data => {
+    res.render("italianMenu", {
+      italianMenuData: data
+    });
+  });
 });
 
 app.get("/about", (req, res) => {

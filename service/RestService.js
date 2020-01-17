@@ -14,7 +14,7 @@ class RestService {
 
   list() {
         return new Promise((resolve, reject)=>{
-            let data = this.knex.select('restaurants_name', 'opening_hours', 'cuisine', 'path_to_img')
+            let data = this.knex.select('id', 'restaurants_name', 'opening_hours', 'cuisine', 'path_to_img')
             .from('restaurants').where('cuisine', 'Italian')
 
             return data.then((rows)=>{
