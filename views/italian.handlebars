@@ -11,28 +11,28 @@
 </section>
 {{!-- <a href="/italian/italianMenu"></a> --}}
 
-{{#each restaurants}}
 <div id="bazinga" class="container-fluid">
 
+{{#each italiandata}}
     <div class="row row-rest">
 
-        <a href="/italian/italianmenu">
+        <a href="/italian/{{id}}">
             <div class="box-part text-center col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                <img class="theme-rest-pic" src="" alt="">
+                <img class="theme-rest-pic" src="{{path_to_img}}" alt="">
                 <div class="title">
-                    <h4>{{this}}</h4>
+                    <h4>{{restaurants_name}}</h4>
                 </div>
                 <div class="text">
                     <span>specializes in the freshest fish and seafood prepared with
                         Latino – Caribbean flair, and features a wonderful oyster and
-                        ceviche bar in front of the open kitchen. </span>
+                        ceviche bar in front of the open kitchen. {{opening_hours}} </span>
                 </div>
             </div>
             <a />
     </div>
+{{/each}}
 </div>
 
-{{/each}}
 
 
 

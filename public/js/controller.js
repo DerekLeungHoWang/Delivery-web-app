@@ -65,10 +65,8 @@ const reloadOrders = (RESDATA) => { //orders = res.data
 // };
 
 $(document).ready(function () {
-
   
-
-
+  
   axios
     .get("/api/orders/")
     .then(res => {
