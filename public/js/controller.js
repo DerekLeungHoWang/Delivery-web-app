@@ -123,7 +123,39 @@ function addToCart(valProduct) {
 //                                 THE  CSS PART
 //
 //=================================================================================//
+   
 
+
+
+//===============searchBar BEGINS===========================//
+const cuisineList = document.querySelector('#cuisine-list ul')
+const forms = document.forms;
+const searchBar = document.forms['search-cuisine'].querySelector('input')
+console.log("he");
+searchBar.addEventListener('keyup', function(e){
+  const term = e.target.value.toLowerCase();
+  console.log(term);
+  
+  const cuisines = cuisineList.getElementsByTagName('li');
+  Array.from(cuisines).forEach((cuisine)=>{
+    const title = cuisine.firstElementChild.textContent 
+    console.log(title.toLowerCase().indexOf(term))  
+    if(title.toLowerCase().indexOf(term)!= -1){
+        cuisine.style.display = 'block';
+    }else{
+        cuisine.style.display = 'none';
+    }
+    
+  })
+  
+  // Array.from(cuisines).forEach(function(cuisine){
+  //   const title = cuisine.firstElementChild.textContent;
+  //   console.log(title);
+    
+   
+  })
+
+//===============searchBar ENDS===========================//
 
 ////////////////////////////////////////////////////////////
 //          CONTROLLABLE IMAGE TRANSITION BEGINS
@@ -599,3 +631,10 @@ var scroll = new SmoothScroll('a[href*="#"]', {
     speed: 1500
   });
   //===============smooth scroll-END===========================//
+
+
+
+   //===============preloader BEGINS===========================//
+
+  //===============preloader ENDS===========================//
+

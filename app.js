@@ -88,9 +88,9 @@ app.get("/italian", (req, res) => {
   });
 });
 //Italian restaurants dynamic render
-app.get("/italian/:restaurantMenu", (req, res) => {
+app.get("/italian/:id", (req, res) => {
   console.log(req.params);
-  foodItemService.list(req.params.restaurantMenu).then(data => {
+  foodItemService.list(req.params.id).then(data => {
     res.render("italianMenu", {
       italianMenuData: data
     });
@@ -116,6 +116,9 @@ app.get("/jp", (req, res) => {
 app.get("/cart/checkout", (req, res) => {
   res.render("checkout");
 });
+app.get("/userprofile", (req, res) => {
+  res.render("userprofile");
+});
 
 // app.post("/");
 
@@ -124,6 +127,6 @@ const options = {
   key: fs.readFileSync("./localhost.key")
 };
 
-https.createServer(options, app).listen(2000);
+https.createServer(options, app).listen(8080);
 
 module.exports = app;

@@ -30,22 +30,14 @@ class FoodItemService {
             "restaurants.id"
           )
           .where("restaurants.id", restParams);
-      } else {
-        data = this.knex
-          .select("food_name", "food_price", "food_image", "restaurants_id")
-          .from("food_item")
-          .innerJoin(
-            "restaurants",
-            "food_item.restaurants_id",
-            "restaurants.id"
-          );
-      }
+      
       return data.then(rows => {
         // console.log(rows, 'data obtained');
         // console.log(rows)
 
         resolve(rows);
       });
+      } 
       //111
     });
   }
