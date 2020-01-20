@@ -74,25 +74,46 @@ app.use("/api/food_item", new FoodItemRouter(foodItemService).router());
 
 // //app.get
 app.get("/", (req, res) => {
-  res.render("index");
+ 
+  restService.cuisineType().then(data =>{
+    res.render("index", {
+      cuisineData: data
+    });
+  })
 });
 
 // //===================================ITALIAN ROUTE============================
 app.get("/italian", (req, res) => {
-  console.log("line 74 running");
 
   restService.list().then(data => {
     res.render("italian", {
-      italiandata: data
+      italianData: data
     });
   });
 });
 //Italian restaurants dynamic render
 app.get("/italian/:restaurantMenu", (req, res) => {
-  console.log(req.params);
   foodItemService.list(req.params.restaurantMenu).then(data => {
     res.render("italianMenu", {
       italianMenuData: data
+    });
+  });
+});
+
+//Japanese Restaurants render
+app.get("/japanese", (req, res) => {
+
+  restService.listJp().then(data => {
+    res.render("japanese", {
+      japaneseData: data
+    });
+  });
+});
+
+app.get("/japanese/:restaurantJpMenu", (req, res) => {
+  foodItemService.list(req.params.restaurantJpMenu).then(data => {
+    res.render("japaneseMenu", {
+      japaneseMenuData: data
     });
   });
 });
@@ -109,9 +130,6 @@ app.get("/contact", (req, res) => {
   res.render("contact");
 });
 
-app.get("/jp", (req, res) => {
-  res.render("japanese");
-});
 
 app.get("/cart/checkout", (req, res) => {
   res.render("checkout");

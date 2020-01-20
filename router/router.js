@@ -9,20 +9,18 @@ module.exports = express => {
     res.redirect("/login"); // or redirect to '/signup'
   }
 
-  
-
   router.get("/secret", isLoggedIn, (req, res) => {
     res.send("Here you go, a secret");
   });
 
   router.get("/login", (req, res) => {
-    console.log('login page')
-    res.render('logSign');
+    console.log("login page");
+    res.render("logSign");
   });
 
   router.get("/signup", (req, res) => {
-    console.log('login page')
-    res.render('signup');
+    console.log("login page");
+    res.render("signup");
   });
 
   router.post(
@@ -33,9 +31,9 @@ module.exports = express => {
     })
   );
 
-//   router.get("/signup", (req, res) => {
-//     res.sendFile(__dirname + "/html/signup.html");
-//   });
+  //   router.get("/signup", (req, res) => {
+  //     res.sendFile(__dirname + "/html/signup.html");
+  //   });
 
   router.post(
     "/signup",
@@ -48,8 +46,6 @@ module.exports = express => {
   router.get("/error", (req, res) => {
     res.send("You are not logged in!");
   });
-
-
 
   router.get(
     "/auth/facebook",
@@ -66,5 +62,21 @@ module.exports = express => {
       failureRedirect: "/contact"
     })
   );
+  router.get(
+    "/auth/google",
+    passport.authenticate("google", {
+      scope: ["https://www.googleapis.com/auth/plus.login"]
+    })
+  );
+
+  router.get(
+    "/auth/google/callback",
+    passport.authenticate("google", { failureRedirect: "/login" }),
+    function(req, res) {
+      res.redirect("/");
+    }
+  );
   return router;
 };
+
+//google

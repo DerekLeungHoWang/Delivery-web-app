@@ -18,12 +18,17 @@
     </form>
     <h1 class="black-h1">Category</h1>
 
-    
-    <a href="/italian"><h2>Italian</h2></a>
-       
-    <a href="/japanese"> <h2>Japanese</h2></a>
-     <a href="/Chinese"><h2>Chinese</h2></a>   
- 
+    <div class="cuisineContainer">
+        <div class='cuisineType'>
+            {{#each cuisineData}}
+            <a href="/{{cuisine_name}}">
+                <h2 id='cuisineName'>{{cuisine_name}}</h2>
+                <img class='cuisine' src="{{image_url}}" alt="">
+            </a>
+            {{/each}}
+
+        </div>
+    </div>
 
 </body>
 

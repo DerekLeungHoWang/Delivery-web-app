@@ -1,4 +1,4 @@
-    const passport = require('passport')
+ const passport = require('passport')
 
 require('dotenv').config()
 
@@ -32,6 +32,7 @@ module.exports = (app)=>{
 
 
     require('./facebookStrategy.js')(passport);
+    require('./googleStrategy.js')(passport);
     require('./passport.js')(passport);
     
 }

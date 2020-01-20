@@ -7,7 +7,6 @@ exports.up = function(knex) {
       table.integer('order_id').unsigned();
       table.foreign('order_id').references('orders.id')
       table.integer('quantity');    
-    
     })
 };
 

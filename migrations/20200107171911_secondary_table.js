@@ -22,7 +22,7 @@ exports.up = function(knex) {
         table.foreign('restaurants_id').references('restaurants.id');
         table.string('restaurant_image');
         table.string('comment');
-      }) 
+      })
   };   
   
   exports.down = function(knex) {

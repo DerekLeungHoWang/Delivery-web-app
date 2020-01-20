@@ -1,11 +1,29 @@
 /*===============NAVBAR=================*/
-.fill{
-  
-}
 /*===============ICON=================*/
 /*===============INDEX BEGINS=================*/
 .black-h1{
   color: #000000;
+}
+
+.cuisineContainer {
+  width: 100%; 
+}
+
+.cuisineType {
+  display: flex; 
+  flex-wrap: wrap;  
+}
+
+.cuisineName:hover {
+  text-decoration: none; 
+}
+
+.cuisine{
+  width: 300px; 
+  height: 200px; 
+  margin: 50px; 
+  background-position: center; 
+  background-size: cover; 
 }
 /*===============INDEX ENDS=================*/
 /*===============italian theme BEGINS=================*/
@@ -32,9 +50,20 @@
   border-radius: 10px;
   transition: all 0.5s ease-in-out;
 }
-/*===============italian theme ENDS=================*/
+/*===============Japanese theme BEGINS=================*/
 
+.jpRender {
+  display: flex; 
+  flex-direction: row; 
+}
 
+.jpRestImage {
+  width: 300px; 
+}
+/* Menu Page */
+.jpFoodImg {
+  width: 200px; 
+}
 
 /*===============CART BEGINS=================*/
 #cart-img{
@@ -44,9 +73,6 @@
 
 .checkout-btn 
 {
-  
-
-
   color: #fff;
 
   background: rgba(3, 3, 3, 0.6);
@@ -690,11 +716,6 @@ margin-right: 5px;
 /*========controllable image transition BEGIN  ==========*/
 #three-container{
   margin-right: 100px !important;
-  
-}
-
-#imgTran{
- 
   
 }
 

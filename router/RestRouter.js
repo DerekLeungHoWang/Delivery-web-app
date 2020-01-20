@@ -11,7 +11,6 @@ class RestRouter{
     }
     
     get(req, res){
-        console.log("router router");
         // console.log(req.auth.user) 
         return this.restService.list()
         .then((data)=>{ 
