@@ -14,8 +14,12 @@
   flex-wrap: wrap;  
 }
 
-.cuisineName:hover {
+/* .cuisineName:hover {
   text-decoration: none; 
+} */
+
+h2 {
+  text-decoration: none;
 }
 
 .cuisine{
@@ -119,6 +123,10 @@
 
 
 /*===============HEADER-START  STATNUM=================*/
+/* #afterLogin {
+  display: none; 
+} */
+
 .notebook-hero {
     background: url(/img/header2.jpg) no-repeat center center;
     background-size: cover;
@@ -820,8 +828,9 @@ canvas {
   text-align: center;
 }
 .profile-img img{
-  width: 200px;
-  height: 163px;
+  width: 230px;
+  height: 161px;
+  box-shadow: 0 0 10px rgb(0, 0, 0);
 }
 .profile-img .file {
   position: relative;
@@ -839,6 +848,7 @@ canvas {
   opacity: 0;
   right: 0;
   top: 0;
+  
 }
 .profile-head h5{
   color: #333;
@@ -851,6 +861,7 @@ canvas {
   font-weight: 600;
   color: #6c757d;
   cursor: pointer;
+ 
 }
 
 .profile-head .nav-tabs{

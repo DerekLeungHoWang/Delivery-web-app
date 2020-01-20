@@ -12,16 +12,17 @@
 
 <!------------pizza lists starts-------------------->
 
-<div class="container-fluid  ">
+<div class="container-fluid dynamic">
     <div class="row no-gutters">
       {{#each italianMenuData}}
         <div class="col-lg-2">
             <div class="box1">
                 <img src="../img/listPizza2.jpg" alt="">
-                <h3 class="title">{{food_name}}<br> ${{food_price}}</h3>
+                <h3 class="food-name">{{food_name}}</h3>
+                <h3 class="food-price"> ${{food_price}}</h3>
                 <ul class="icon">
                     <li><a><i href=".modal" class="add-to-cart-btn fas fa-shopping-cart" data-toggle='modal'
-                                id="pepperoni">
+                                id="{{food_name}}">
                             </i></a href="#myModal">
                     </li>
 

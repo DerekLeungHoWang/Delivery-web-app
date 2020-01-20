@@ -14,12 +14,10 @@ module.exports = express => {
   });
 
   router.get("/login", (req, res) => {
-    console.log("login page");
     res.render("logSign");
   });
 
   router.get("/signup", (req, res) => {
-    console.log("login page");
     res.render("signup");
   });
 
@@ -47,6 +45,13 @@ module.exports = express => {
 		res.send("You are not logged in!");
 	});
 
+  router.get('/logout', (req, res)=>{
+    req.logout();
+    res.redirect('/');
+    console.log('logged out')
+  });
+
+
   router.get(
     "/auth/facebook",
     passport.authenticate("facebook", {
@@ -62,6 +67,7 @@ module.exports = express => {
       failureRedirect: "/contact"
     })
   );
+
   router.get(
     "/auth/google",
     passport.authenticate("google", {

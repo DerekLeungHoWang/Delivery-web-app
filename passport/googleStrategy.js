@@ -18,7 +18,7 @@ module.exports = (passport) => {
         {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: `auth/google/callback`,
+        callbackURL: `/auth/google/callback`,
         profileFields: [
             "id",
             "email",
@@ -33,7 +33,7 @@ module.exports = (passport) => {
           let user = {
             googleID: profile.id,
             email: profile._json.email,
-            accessToken: accessToken
+            googleAccessToken: accessToken
           };
 
           let query = await knex("users")

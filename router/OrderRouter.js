@@ -1,3 +1,4 @@
+const passport = require("passport");
 const express = require("express");
 const router = express.Router();
 
@@ -7,43 +8,77 @@ class OrderRouter{
         this.orderService = orderService;
     }
 
-    router(){
+    router(){  
         function isLoggedIn(req, res, next) {
+            
             if (req.isAuthenticated()) {
-              return next();
+               
+                return next();
             }
-            res.redirect("/signedin"); // or redirect to '/signup'
-          }
-        router.get("/", isLoggedIn, this.get.bind(this));
-        router.post('/', isLoggedIn, this.post.bind(this));
-    
+            res.redirect("/login"); // or redirect to '/signup'
+        }
+
+        router.get("/",isLoggedIn,this.get.bind(this));
+        router.post("/",isLoggedIn,this.post.bind(this));
+        // router.delete('/:id', this.delete.bind(this));
+   
         return router
     }
+
+    get(req,res){
+        
+        return this.orderService.list(req.session.passport.user.id)
+        .then((data)=>res.json(data))
+        .catch((err)=>res.status(500).json(err));
+    }
+    post(req,res){
+        console.log("LINE 26 ORDER ROUTER JS"); 
+        // console.log(req.session);
+        console.log(req.session.passport.user.email);
+        console.log(req.body)
+        
+        return this.orderService.add(req.body.newOrder,req.session.passport.user.email)
+        .then((data)=> {
+            this.orderService.list(req.session.passport.user.email).then((data)=>{
+                res.json(data)
+            })
+        }) 
+        .catch((err)=>res.status(500).json(err));
+    }
     
-    get(req, res){
-        console.log("LINE 16 OrderRouter <<<<>>>");
-        console.log(req)
-        console.log(req.session)
-        console.log(req.session.passport.user)
-        return this.orderService.list(req.session.passport.user.email)
-        .then((data)=>
-        { console.log(data, "line 21 routerJS")
-        res.json(data)})
-        .catch((err) => res.status(500).json(err))
-    }
-
-    post(req, res){
-        console.log(req.body.order) // value is from axios.post in controller.js
-        console.log(req.auth.user, 'line 28 orderRouter.js');
-        console.log("LINE29 ROUTERJS checking req.body");
-        console.log(req.body);
-        
-         this.orderService.add(req.body.order, req.auth.user)
-
-       res.send('order completed');
-        
-    }
     
 }
 
 module.exports = OrderRouter;
+
+
+// router(){
+    //     function isLoggedIn(req, res, next) {
+    //         if (req.isAuthenticated()) {
+    //           return next();
+    //         }
+    //         res.redirect("/signedin"); // or redirect to '/signup'
+    //       }
+    //     router.get("/", isLoggedIn, this.get.bind(this));
+    //     router.post('/', isLoggedIn, this.post.bind(this));
+    
+    //     return router
+    // }
+    
+    // get(req, res){
+        
+    //     return this.orderService.list(req.session.passport.user.email)
+    //     .then((data)=>
+    //     { console.log("line 21 ORDERrouterJS")
+    //     res.json(data)})
+    //     .catch((err) => res.status(500).json(err))
+    // }
+
+    // post(req, res){
+    //     console.log("POST REQUEST ORDER ROUTER JS")
+        
+    //      this.orderService.add(req.body.order, req.session.passport.user) //req.body.order
+
+    //    res.send('order completed');
+        
+    // }
