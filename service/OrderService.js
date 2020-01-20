@@ -6,89 +6,98 @@ class OrderService{
         this.knex = knex;
     }
 
-    
+    add(newOrder, user){
 
-    read(user){
-        console.log('read function running');
-        console.log(user, 'line 13')
-        return new Promise((resolve,reject)=>{
-            fs.readFile(this.file,'utf-8',(err,data)=>{
-                console.log(data, "line 18 , orderService");
-                if(err){
-                    reject(err)
-                }
-                try{     
-                    this.orders = JSON.parse(data);
-                    console.log(this.orders, "line 24 orderService");
-                    console.log(user, 'line 23')
-                 
-                } catch (e) {
-                    return reject(e)
-                }
-                return resolve(this.orders[user]);
-            })
-
-        })  
-    }
-
-    list(user){     
-        console.log(typeof user, "line 10 list function running orderService");
-        if(typeof user !== undefined){
-            let query = this.knex.select('food_name','food_price', 'food_image', 'restaurants_id')
-            .from('food_item')
-            // .where('users.username', user)
-          
-            console.log('line 43 orderservice');
-            
-            return query.then((rows)=>{
-                console.log(rows, 'line 45 Orderservice JS');
-                return rows.map(row=>({
-                    food_item: row.food_name,
-                    food_price:row.food_price,
-                    food_image: row.food_image,
-                    restaurants_id:row.restaurants_id
-                }));  
-            });
-        }
-        
-    }
-
-    add(newOrder,user){
-        console.log('add function running ?????????????????????????');
-        console.log(newOrder,user);
-        console.log(this.orders, 'line 43 ===========>>>>>');
         let query = this.knex
         .select('id')
         .from('users')
-        .where('users.username', user);
-        
+        .where('users.email', user)      
 
-            return query.then((rows)=>{
-               console.log(rows[0].id);
-               return this.knex.insert({
-                content:newOrder,
-                user_id: rows[0].id
+            return query.then((rows) =>{
+                console.log(rows[0].id, '<=====this is the id');
+                console.log(rows.length);
                 
-            }).into('orders')
-                
-            })
-    }
+                if(rows.length === 1){
 
-    // write(){
-    //     console.log('write function running ');
-    //     return new Promise((resolve,reject)=>{
-    //         fs.writeFile(this.file, JSON.stringify(this.orders),(err)=>{
-    //             console.log(this.file, 'line 52 orderserviceJS');
-                
-    //             console.log(this.orders, "line 54 orderservice JS")
-    //             if(err){
-    //                 return reject(err);
-    //             }
-    //             resolve(this.orders);
-    //         })
-    //     })
-    // }
+
+                    return this.knex.insert({ 
+                        user_id: rows[0].id,
+                        
+                    }).into('order_items')
+            }else{
+                    throw new Error('Cannot add a note to a user that doesnt exist')
+                }
+            });
+     
+    };
+
+    list(user){
+        if(typeof user !== 'undefined'){
+            let query = this.knex.select('notes.id', 'notes.content')
+                .from('notes')
+                .innerJoin('users', 'notes.user_id', 'users.id')
+                .where('users.username', user) //user is the argument
+                .orderBy('notes.id', 'asc')
+                //what is asc
+                return query.then((rows)=>{
+                    console.log(rows, 'pp');
+                    return rows.map(row=>({
+                        id: row.id,
+                        content: row.content
+                    }));               
+                });
+            }
+        }
+    
+
+
+
 
 }
 
 module.exports = OrderService;
+
+
+
+
+
+// add(newOrder,user){
+    //     console.log(newOrder,user);
+    //     console.log(this.orders, 'line 43 ===========>>>>>');
+    //     let query = this.knex
+    //     .select('id')
+    //     .from('users')
+    //     .where('users.username', user);
+         
+
+    //         return query.then((rows)=>{
+    //            console.log(rows[0].id);
+    //            return this.knex.insert({
+    //             content:newOrder,
+    //             user_id: rows[0].id
+                
+    //         }).into('orders')
+                
+    //         })
+    // }
+
+    // list(user){     
+    //     if(typeof user !== undefined){
+    //         let query = this.knex.select('food_name','food_price', 'food_image', 'restaurants_id')
+    //         .from('food_item')
+    //         // .where('users.username', user)
+          
+    //         console.log('line 43 orderserviceJS');
+            
+    //         return query.then((rows)=>{
+    //             console.log('line 45 Orderservice JS');
+    //             return rows.map(row=>({
+    //                 food_item: row.food_name,
+    //                 food_price:row.food_price,
+    //                 food_image: row.food_image,
+    //                 restaurants_id:row.restaurants_id
+    //             }));  
+    //         });
+    //     }
+        
+    // }

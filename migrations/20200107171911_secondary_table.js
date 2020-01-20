@@ -3,7 +3,7 @@ exports.up = function(knex) {
         table.increments();
         table.integer('user_id').unsigned();
         table.foreign('user_id').references('users.id');
-        table.string('status');
+        table.boolean('status');
         table.decimal('amount',null)
         table.timestamps(false, true);
     }).createTable('food_item', (table)=>{
@@ -22,7 +22,7 @@ exports.up = function(knex) {
         table.foreign('restaurants_id').references('restaurants.id');
         table.string('restaurant_image');
         table.string('comment');
-      }) 
+      })
   };   
   
   exports.down = function(knex) {

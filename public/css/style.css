@@ -1,11 +1,33 @@
 /*===============NAVBAR=================*/
-.fill{
-  
-}
 /*===============ICON=================*/
 /*===============INDEX BEGINS=================*/
 .black-h1{
   color: #000000;
+}
+
+.cuisineContainer {
+  width: 100%; 
+}
+
+.cuisineType {
+  display: flex; 
+  flex-wrap: wrap;  
+}
+
+/* .cuisineName:hover {
+  text-decoration: none; 
+} */
+
+h2 {
+  text-decoration: none;
+}
+
+.cuisine{
+  width: 300px; 
+  height: 200px; 
+  margin: 50px; 
+  background-position: center; 
+  background-size: cover; 
 }
 /*===============INDEX ENDS=================*/
 /*===============italian theme BEGINS=================*/
@@ -32,9 +54,20 @@
   border-radius: 10px;
   transition: all 0.5s ease-in-out;
 }
-/*===============italian theme ENDS=================*/
+/*===============Japanese theme BEGINS=================*/
 
+.jpRender {
+  display: flex; 
+  flex-direction: row; 
+}
 
+.jpRestImage {
+  width: 300px; 
+}
+/* Menu Page */
+.jpFoodImg {
+  width: 200px; 
+}
 
 /*===============CART BEGINS=================*/
 #cart-img{
@@ -44,9 +77,6 @@
 
 .checkout-btn 
 {
-  
-
-
   color: #fff;
 
   background: rgba(3, 3, 3, 0.6);
@@ -93,6 +123,10 @@
 
 
 /*===============HEADER-START  STATNUM=================*/
+/* #afterLogin {
+  display: none; 
+} */
+
 .notebook-hero {
     background: url(/img/header2.jpg) no-repeat center center;
     background-size: cover;
@@ -693,11 +727,6 @@ margin-right: 5px;
   
 }
 
-#imgTran{
- 
-  
-}
-
 canvas {
 	background-image: radial-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
   width: 800px !important;
@@ -799,8 +828,9 @@ canvas {
   text-align: center;
 }
 .profile-img img{
-  width: 200px;
-  height: 163px;
+  width: 230px;
+  height: 161px;
+  box-shadow: 0 0 10px rgb(0, 0, 0);
 }
 .profile-img .file {
   position: relative;
@@ -818,6 +848,7 @@ canvas {
   opacity: 0;
   right: 0;
   top: 0;
+  
 }
 .profile-head h5{
   color: #333;
@@ -830,6 +861,7 @@ canvas {
   font-weight: 600;
   color: #6c757d;
   cursor: pointer;
+ 
 }
 
 .profile-head .nav-tabs{

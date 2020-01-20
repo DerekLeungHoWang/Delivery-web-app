@@ -10,7 +10,7 @@ const knex = require("knex")({
   }
 });
 
-module.exports = (passport) => {
+module.exports = passport => {
   passport.use(
     "facebook",
     new FacebookStrategy(

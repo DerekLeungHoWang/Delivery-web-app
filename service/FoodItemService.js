@@ -18,7 +18,6 @@ class FoodItemService {
 
   list(restParams) {
     return new Promise((resolve, reject) => {
-      console.log(restParams, "line 18 fooditemservice");
       let data;
       if (restParams !== undefined) {
         data = this.knex

@@ -11,8 +11,6 @@ const path = require("path");
 
 const bodyParser = require("body-parser");
 const router = require("./router/router")(express);
-// const AuthChallenger = require('./AuthChallenger.js')
-// const basicAuth = require('express-basic-auth');
 //require KNEX
 const knexConfig = require("./knexfile").development;
 const knex = require("knex")(knexConfig);
@@ -20,6 +18,15 @@ const knex = require("knex")(knexConfig);
 //require login modules
 const setupPassport = require("./passport/initpassport");
 const session = require("express-session");
+//app.use(sesssion)
+app.use(
+  session({
+    secret: "supersecret",
+    resave: false,
+    saveUninitialized: true
+  })
+);
+//has to be above setuppassport
 setupPassport(app);
 
 //template engine
@@ -31,23 +38,6 @@ app.use(bodyParser.json());
 
 app.use(express.static("public"));
 app.use(express.static("router"));
-
-//app.use(sesssion)
-app.use(
-  session({
-    secret: "supersecret",
-    resave: false,
-    saveUninitialized: true
-  })
-);
-
-//app.use AuthChallenger
-// app.use(basicAuth({
-//   authorizeAsync: true,
-//   authorizer: AuthChallenger(knex),
-//   challenge: true,
-//   realm: 'knex'
-// }));
 
 //======================================AUTH=================//
 app.use("/", router);
@@ -61,10 +51,10 @@ app.use("/api/restaurants", new RestRouter(restService).router());
 //
 
 // ================Orders Service and Router
-// const OrderService = require("./service/OrderService");
-// const OrderRouter = require("./router/OrderRouter");
-// const orderService = new OrderService(knex);
-// app.use("/api/orders", new OrderRouter(orderService).router());
+const OrderService = require("./service/OrderService");
+const OrderRouter = require("./router/OrderRouter");
+const orderService = new OrderService(knex);
+app.use("/api/orders", new OrderRouter(orderService).router());
 
 //foodItemService and Router//
 const FoodItemService = require("./service/FoodItemService");
@@ -74,16 +64,25 @@ app.use("/api/food_item", new FoodItemRouter(foodItemService).router());
 
 // //app.get
 app.get("/", (req, res) => {
-  res.render("index");
+ 
+  if(req.session.user){
+    console.log("line 80 ==========================>")
+
+  } else {
+    restService.cuisineType().then(data =>{
+    res.render("index", {
+      cuisineData: data,
+    });
+     })
+  }
 });
 
 // //===================================ITALIAN ROUTE============================
 app.get("/italian", (req, res) => {
-  console.log("line 74 running");
 
   restService.list().then(data => {
     res.render("italian", {
-      italiandata: data
+      italianData: data
     });
   });
 });
@@ -93,6 +92,24 @@ app.get("/italian/:id", (req, res) => {
   foodItemService.list(req.params.id).then(data => {
     res.render("italianMenu", {
       italianMenuData: data
+    });
+  });
+});
+
+//Japanese Restaurants render
+app.get("/japanese", (req, res) => {
+
+  restService.listJp().then(data => {
+    res.render("japanese", {
+      japaneseData: data
+    });
+  });
+});
+
+app.get("/japanese/:id", (req, res) => {
+  foodItemService.list(req.params.id).then(data => {
+    res.render("japaneseMenu", {
+      japaneseMenuData: data
     });
   });
 });
@@ -109,13 +126,11 @@ app.get("/contact", (req, res) => {
   res.render("contact");
 });
 
-app.get("/jp", (req, res) => {
-  res.render("japanese");
-});
 
 app.get("/cart/checkout", (req, res) => {
   res.render("checkout");
 });
+
 app.get("/userprofile", (req, res) => {
   res.render("userprofile");
 });
@@ -127,6 +142,6 @@ const options = {
   key: fs.readFileSync("./localhost.key")
 };
 
-https.createServer(options, app).listen(8080);
+https.createServer(options, app).listen(2000);
 
 module.exports = app;

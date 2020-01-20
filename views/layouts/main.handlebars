@@ -40,26 +40,10 @@
   <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/175711/bas.js"></script>
   <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/175711/OrbitControls-2.js"></script>
 
-
+<script src="../js/display.js"></script>
 <script src="../js/controller.js"></script>
 <script src="../js/search.js"></script>
 
-<script>
 
-let button = document.getElementById('login')
-
-$('#login').click(function (event){
-event.preventDefault()
-console.log('wow')
-
-let data =  { email:"david@gmail.com", password:1}
-
-$.ajax({
-    url:'/signedin',
-    type:"POST",
-    data:data
-    })
-})
-</script>
 </body>
 </html>

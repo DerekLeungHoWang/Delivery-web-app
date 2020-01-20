@@ -36,6 +36,44 @@ class RestService {
       });
     });
   }
+
+  listJp() {
+    return new Promise((resolve, reject) => {
+      let data = this.knex
+        .select(
+          "id",
+          "restaurants_name",
+          "opening_hours",
+          "cuisine",
+          "path_to_img"
+        )
+        .from("restaurants")
+        .where("cuisine", "Japanese");
+
+      return data.then(rows => {
+        // console.log(rows, 'data obtained');
+        // console.log(rows)
+        resolve(rows);
+      });
+    });
+  }
+  // for dynamically rendering cuisine images
+  cuisineType() {
+    return new Promise((resolve, reject) => {
+      let data = this.knex
+        .select(
+          "cuisine_name",
+          "image_url"
+        )
+        .from("cuisine_type")
+
+      return data.then(rows => {
+        // console.log(rows, 'data obtained');
+        // console.log(rows)
+        resolve(rows);
+      });
+    });
+  }
 }
 // console.log(knexConfig)
 const knex = require("knex")(knexConfig);

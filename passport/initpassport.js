@@ -1,4 +1,4 @@
-    const passport = require('passport')
+ const passport = require('passport')
 
 require('dotenv').config()
 
@@ -16,13 +16,12 @@ module.exports = (app)=>{
     app.use(passport.session());
 
     passport.serializeUser((user,done)=>{
-        console.log(user)
+        // console.log(user, "<==== serialise")
         done(null,user);
     });
 
-    passport.deserializeUser(async (id, done) => {
-        console.log(id)
-        let users = await knex('users').where({id:id.id});
+    passport.deserializeUser(async (user, done) => {
+        let users = await knex('users').where({id:user.id});
         if (users.length == 0) {
             return done(new Error(`Wrong user id ${id}`));
         }
@@ -32,6 +31,7 @@ module.exports = (app)=>{
 
 
     require('./facebookStrategy.js')(passport);
+    require('./googleStrategy.js')(passport);
     require('./passport.js')(passport);
     
 }
