@@ -1,6 +1,6 @@
 //===============searchBar BEGINS===========================//
 const cuisineList = document.querySelector('#cuisine-list ul')
-const forms = document.forms;
+
 const searchBar = document.forms['search-cuisine'].querySelector('input')
 
 searchBar.addEventListener('keyup', function(e){
