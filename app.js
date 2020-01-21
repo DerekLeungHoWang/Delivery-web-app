@@ -90,6 +90,10 @@ app.get("/italian", (req, res) => {
 app.get("/italian/:id", (req, res) => {
   console.log(req.params);
   foodItemService.list(req.params.id).then(data => {
+    // console.log(data,"LINE 93 ======<><><>< app js");
+
+    console.log(data)
+    
     res.render("italianMenu", {
       italianMenuData: data
     });

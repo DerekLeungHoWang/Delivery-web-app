@@ -26,22 +26,30 @@ class OrderRouter{
     }
 
     get(req,res){
+        // console.log("GET ORDER ROUTER JS");
         
-        return this.orderService.list(req.session.passport.user.id)
-        .then((data)=>res.json(data))
+        return this.orderService.list(req.session.passport.user.email)
+        .then((data)=> {
+            // console.log(data)           
+          res.json(data) })
+
         .catch((err)=>res.status(500).json(err));
     }
     post(req,res){
-        console.log("LINE 26 ORDER ROUTER JS"); 
-        // console.log(req.session);
-        console.log(req.session.passport.user.email);
-        console.log(req.body)
-        
-        return this.orderService.add(req.body.newOrder,req.session.passport.user.email)
-        .then((data)=> {
-            this.orderService.list(req.session.passport.user.email).then((data)=>{
-                res.json(data)
-            })
+        // console.log("LINE 26 ORDER ROUTER JS"); 
+        // // console.log(req.session);
+        // console.log(req.session.passport.user.email);
+        // console.log(req.body)
+        return this.orderService.add(req.session.passport.user.email)
+        .then((data)=> {        
+            // console.log(data, "================>line 43 orderROUTER JS");
+            // this.orderService.list(req.session.passport.user.email).then((data)=>{
+            //     console.log(data);
+
+
+                
+            //     res.json(data)
+            // })
         }) 
         .catch((err)=>res.status(500).json(err));
     }

@@ -1,103 +1,121 @@
-const fs = require('fs');
+const fs = require("fs");
+
+class OrderService {
+  constructor(knex) {
+    this.knex = knex;
+  }
+
+  add(user) {
+    let query = this.knex
+      .select("id")
+      .from("users")
+      // .innerJoin('orders','users.id', 'orders.user_id')
+      .where("users.email", user);
+    // .orderBy('users.id', 'asc')
 
 
-class OrderService{
-    constructor(knex){
-        this.knex = knex;
-    }
 
-    add(newOrder, user){
+    return query.then(rows => {
 
-        let query = this.knex
-        .select('id')
-        .from('users')
-        .where('users.email', user)      
 
-            return query.then((rows) =>{
-                console.log(rows[0].id, '<=====this is the id');
-                console.log(rows.length);
+
+
+      if (rows.length === 1) {
+        return this.knex
+          .insert({
+            user_id: rows[0].id,
+            status: false,
+            amount: 999
+          })
+          .into("orders")
+
+
+          .then(()=> {
+              console.log('wow.')
+            let query = this.knex
+              .select("id", "user_id", "status", "amount")
+              .from("orders");
+
+
+            return query.then(rows => {
                 
-                if(rows.length === 1){
-
-
-                    return this.knex.insert({ 
-                        user_id: rows[0].id,
-                        
-                    }).into('order_items')
-            }else{
-                    throw new Error('Cannot add a note to a user that doesnt exist')
-                }
-            });
      
-    };
+              
+              return this.knex
+                .insert({
+                  food_item_id: 1,
+                  order_id: 2,
+                  quantity: 2
+                })
+                .into("order_items");
+            });
+          });
+      } else {
+        throw new Error("Cannot add a note to a user that doesnt exist");
+      }
+    });
+  }
 
-    list(user){
-        if(typeof user !== 'undefined'){
-            let query = this.knex.select('notes.id', 'notes.content')
-                .from('notes')
-                .innerJoin('users', 'notes.user_id', 'users.id')
-                .where('users.username', user) //user is the argument
-                .orderBy('notes.id', 'asc')
-                //what is asc
-                return query.then((rows)=>{
-                    console.log(rows, 'pp');
-                    return rows.map(row=>({
-                        id: row.id,
-                        content: row.content
-                    }));               
-                });
-            }
-        }
-    
+  list(user) {
+    console.log(user);
+    if (typeof user !== "undefined") {
+      let query = this.knex
+        .select("orders.user_id", "orders.status", "orders.amount")
+        .from("orders")
+        .innerJoin("users", "orders.user_id", "users.id")
+        .where("users.email", user)
+        .orderBy("orders.id", "asc");
 
+      return query.then(rows => {
 
-
-
+        return rows.map(row => ({
+          user_id: row.user_id,
+          status: row.status,
+          amount: row.amount
+        }));
+      });
+    }
+  }
 }
 
 module.exports = OrderService;
 
-
-
-
-
 // add(newOrder,user){
-    //     console.log(newOrder,user);
-    //     console.log(this.orders, 'line 43 ===========>>>>>');
-    //     let query = this.knex
-    //     .select('id')
-    //     .from('users')
-    //     .where('users.username', user);
-         
+//     console.log(newOrder,user);
+//     console.log(this.orders, 'line 43 ===========>>>>>');
+//     let query = this.knex
+//     .select('id')
+//     .from('users')
+//     .where('users.username', user);
 
-    //         return query.then((rows)=>{
-    //            console.log(rows[0].id);
-    //            return this.knex.insert({
-    //             content:newOrder,
-    //             user_id: rows[0].id
-                
-    //         }).into('orders')
-                
-    //         })
-    // }
+//         return query.then((rows)=>{
+//            console.log(rows[0].id);
+//            return this.knex.insert({
+//             content:newOrder,
+//             user_id: rows[0].id
 
-    // list(user){     
-    //     if(typeof user !== undefined){
-    //         let query = this.knex.select('food_name','food_price', 'food_image', 'restaurants_id')
-    //         .from('food_item')
-    //         // .where('users.username', user)
-          
-    //         console.log('line 43 orderserviceJS');
-            
-    //         return query.then((rows)=>{
-    //             console.log('line 45 Orderservice JS');
-    //             return rows.map(row=>({
-    //                 food_item: row.food_name,
-    //                 food_price:row.food_price,
-    //                 food_image: row.food_image,
-    //                 restaurants_id:row.restaurants_id
-    //             }));  
-    //         });
-    //     }
-        
-    // }
+//         }).into('orders')
+
+//         })
+// }
+
+// list(user){
+//     if(typeof user !== undefined){
+//         let query = this.knex.select('food_name','food_price', 'food_image', 'restaurants_id')
+//         .from('food_item')
+//         // .where('users.username', user)
+
+//         console.log('line 43 orderserviceJS');
+
+//         return query.then((rows)=>{
+//             console.log('line 45 Orderservice JS');
+//             return rows.map(row=>({
+//                 food_item: row.food_name,
+//                 food_price:row.food_price,
+//                 food_image: row.food_image,
+//                 restaurants_id:row.restaurants_id
+//             }));
+//         });
+//     }
+
+// }

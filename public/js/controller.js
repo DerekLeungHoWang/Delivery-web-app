@@ -527,16 +527,16 @@ var scroll = new SmoothScroll('a[href*="#"]', {
 // $(document).ready(function () {
   
 
-//   axios
-//     .get("/api/orders/")
-//     .then(res => {
-//       console.log("LINE 52 controller.js");
-//       console.log('getting orders(RES.DATA) line 92 controllerJS', res.data); 
-//       reloadOrders(res.data)
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
+  // axios
+  //   .get("/api/orders/")
+  //   .then(res => {
+  //     console.log("LINE 52 controller.js");
+  //     console.log('getting orders(RES.DATA) line 92 controllerJS', res.data); 
+  //     reloadOrders(res.data)
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 
 // $('.dynamic').on('click', '.add-to-cart-btn', function(event){
 //   event.preventDefault()
