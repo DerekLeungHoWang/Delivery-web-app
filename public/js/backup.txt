@@ -1,0 +1,198 @@
+// var ordersTemplate = Handlebars.compile(
+//     `
+//       {{#each foodItem }}
+//       <div class="cart-area">
+//         <div class="container">
+//             <div class="row">
+//                 <div class="col-12">
+//                     <table class="table table-responsive">
+//                         <tbody >
+//                             <tr>
+                            
+//                                 <td class="cart_product_img d-flex align-items-center">
+//                                 <h5>productID: {{@key}}</h6>
+//                                 <span> &nbsp; &nbsp;</span>
+                              
+//                                 <h6>{{foodItemName}} </h6>
+                                    
+//                                 </td>
+//                                 <td class="price"><span> $ {{foodItemPrice}}   </span></td>
+//                                 <td class="qty">
+//                                     <div class="product-quantity">
+                
+//                                         <input type="number" class="qty-text" id="{{@key}}" step="1" min="1" max="99"
+//                                             name="quantity" value={{food_item_count}} data-foodItemPrice={{foodItemPrice}}>
+      
+//                                     </div>
+//                                 </td>
+                                
+//                                 <td class="row_total_price"><span> $ {{totalPrice}} </span></td>
+//                                 <td class="item-removal">
+//                                 <button class="remove-item-btn">Remove</button>
+//                                 </td>
+//                             </tr>
+//                         </tbody>
+    
+    
+//                     </table>
+//                 </div>
+//             </div>
+//         </div>
+//     </div>  {{/each}}
+//       `
+//   );
+  
+//   class displayCart {
+//     constructor() {
+//       this.order = this.getOrder();
+//       this.counts = { key: "value" };
+//     }
+  
+//     reloadOrders() {
+//       let foodArr = this.getOrder();
+  
+//       let data = {
+//         foodItem: foodArr
+//       };
+//       $("#orders").html(ordersTemplate(data));
+//     }
+  
+//     getCountArr() {
+//       console.log(this.counts);
+  
+//       $("form").submit(event => {
+//         event.preventDefault();
+  
+//         let food_item_name = event.target.children[0].dataset.p;
+//         let count = event.target.children[0].value;
+//         let key = food_item_name;
+  
+//         this.counts[key] = count;
+  
+//         console.log(this.counts);
+//       });
+  
+//       return this.counts;
+//     }
+  
+//     //=====================GETTING ALL ITEMS PRICE
+//     getPriceArray() {
+//       let addToCartBtn = $(":button.add-to-cart-btn");
+//       let all_food_price_arr = [];
+  
+//       for (let i = 0; i < addToCartBtn.length; i++) {
+//         all_food_price_arr.push(addToCartBtn[i].dataset.price);
+//       }
+  
+//       return all_food_price_arr;
+//     }
+//     //GETTING ALL ITEM'S RESTAURANTS'ID
+//     getRestaurantID() {
+//       let addToCartBtn = $(":button.add-to-cart-btn");
+//       let restaurant_id_arr = [];
+//       for (let i = 0; i < addToCartBtn.length; i++) {
+//         restaurant_id_arr.push(addToCartBtn[i].dataset.restaurants_id);
+//       }
+//       return restaurant_id_arr;
+//     }
+  
+//     getFoodItemName() {
+//       let addToCartBtn = $(":button.add-to-cart-btn");
+//       let restaurant_name_arr = [];
+//       for (let i = 0; i < addToCartBtn.length; i++) {
+//         restaurant_name_arr.push(addToCartBtn[i].id);
+//       }
+//       return restaurant_name_arr;
+//     }
+//     getFoodItemID() {
+//       let addToCartBtn = $(":button.add-to-cart-btn");
+//       let food_item_id_arr = [];
+//       for (let i = 0; i < addToCartBtn.length; i++) {
+//         food_item_id_arr.push(addToCartBtn[i].dataset.food_item_id);
+//       }
+//       return food_item_id_arr;
+//     }
+  
+//     getOrder(){
+  
+//     }
+    
+  
+//     getOrderTobeAssigned() {
+//       let order_obj;
+//       let all_food_price_arr = this.getPriceArray();
+//       let restaurant_id_arr = this.getRestaurantID();
+//       let food_item_name_arr = this.getFoodItemName();
+//       let food_item_id_arr = this.getFoodItemID();
+//       let food_item_count_arr = [];
+  
+//       let array = this.getCountArr();
+  
+//       console.log("within getOrder");
+//       console.log(array);
+  
+//       let func = object => {
+//         if (object === undefined || null) {
+//           console.log("Something broke");
+//         } else {
+//           //  console.log(object)
+//           let array = Object.keys(object);
+//           let values = Object.values(object);
+//           let new_food_item_count_arr = values.slice(1);
+//           console.log(new_food_item_count_arr);
+  
+//           console.log(values);
+//           console.log(array);
+  
+//           for (let i = 1; i < array.length; i++) {
+//             const structure = {};
+//             let obj = Object.create(structure);
+//             obj[`${array[i]}`] = values[i];
+//             food_item_count_arr.push(obj);
+//           }
+//           console.log(food_item_count_arr);
+  
+//           let foodArr = [];
+//           for (let i = 0; i < food_item_name_arr.length; i++) {
+//             order_obj = {
+//               restaurant_id_arr: restaurant_id_arr[i],
+//               food_item_name_arr: food_item_name_arr[i],
+//               all_food_price_arr: all_food_price_arr[i],
+//               food_item_id_arr: food_item_id_arr[i]
+//             };
+  
+//             foodArr.push(order_obj);
+//           }
+  
+//           return foodArr;
+//         }
+//       };
+  
+//       let foodArr = func(array);
+//       console.log(foodArr);
+  
+//       return foodArr;
+//     }
+  
+//     saveInLocalStorage() {
+//       let foodArr = this.getOrder();
+  
+//       foodArr.forEach(rows => {
+//         localStorage.setItem("restaurant_id_arr", rows.restaurant_id_arr);
+//         localStorage.setItem("food_item_name_arr", rows.food_item_name_arr);
+//         localStorage.setItem("all_food_price_arr", rows.all_food_price_arr);
+//         localStorage.setItem("food_item_id_arr", rows.food_item_id_arr);
+//       });
+  
+//       return localStorage;
+//     }
+//   }
+  
+//   const newOrder = new displayCart();
+  
+//   newOrder.getCountArr();
+  
+//   $("#click").on("click", () => {
+//     newOrder.getOrderTobeAssigned();
+//   });
+  

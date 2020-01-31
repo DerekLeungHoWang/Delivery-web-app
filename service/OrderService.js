@@ -5,7 +5,7 @@ class OrderService {
     this.knex = knex;
   }
 
-  add(user) {
+  add(user,content) {
     let query = this.knex
       .select("id")
       .from("users")
@@ -13,43 +13,17 @@ class OrderService {
       .where("users.email", user);
     // .orderBy('users.id', 'asc')
 
-
-
     return query.then(rows => {
-
-
-
-
       if (rows.length === 1) {
+        console.log(rows);
+
         return this.knex
           .insert({
             user_id: rows[0].id,
             status: false,
             amount: 999
           })
-          .into("orders")
-
-
-          .then(()=> {
-              console.log('wow.')
-            let query = this.knex
-              .select("id", "user_id", "status", "amount")
-              .from("orders");
-
-
-            return query.then(rows => {
-                
-     
-              
-              return this.knex
-                .insert({
-                  food_item_id: 1,
-                  order_id: 2,
-                  quantity: 2
-                })
-                .into("order_items");
-            });
-          });
+          .into("orders");
       } else {
         throw new Error("Cannot add a note to a user that doesnt exist");
       }
@@ -57,7 +31,6 @@ class OrderService {
   }
 
   list(user) {
-    console.log(user);
     if (typeof user !== "undefined") {
       let query = this.knex
         .select("orders.user_id", "orders.status", "orders.amount")
@@ -67,7 +40,6 @@ class OrderService {
         .orderBy("orders.id", "asc");
 
       return query.then(rows => {
-
         return rows.map(row => ({
           user_id: row.user_id,
           status: row.status,

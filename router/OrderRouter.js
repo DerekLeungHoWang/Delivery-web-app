@@ -39,8 +39,10 @@ class OrderRouter{
         // console.log("LINE 26 ORDER ROUTER JS"); 
         // // console.log(req.session);
         // console.log(req.session.passport.user.email);
-        // console.log(req.body)
-        return this.orderService.add(req.session.passport.user.email)
+        console.log('post?=========');
+        
+        console.log(req.body.content, "<============== req.body this ")
+        return this.orderService.add(req.session.passport.user.email, req.body.content)
         .then((data)=> {        
             // console.log(data, "================>line 43 orderROUTER JS");
             // this.orderService.list(req.session.passport.user.email).then((data)=>{

@@ -1,17 +1,8 @@
-
-
-
-
 //=================================================================================//
 //
 //                                 THE  CSS PART
 //
 //=================================================================================//
-   
-
-
-
-
 
 ////////////////////////////////////////////////////////////
 //          CONTROLLABLE IMAGE TRANSITION BEGINS
@@ -23,7 +14,7 @@ console.ward = function() {}; // what warnings?
 function init() {
   var root = new THREERoot({
     createCameraControls: !true,
-    antialias: (window.devicePixelRatio === 1),
+    antialias: window.devicePixelRatio === 1,
     fov: 80
   });
 
@@ -34,31 +25,31 @@ function init() {
   var width = 100;
   var height = 60;
 
-  var slide = new Slide(width, height, 'out');
-	var l1 = new THREE.ImageLoader();
-	l1.setCrossOrigin('Anonymous');
-	l1.load('../img/hk.jpg', function(img) {
-	  slide.setImage(img);
-	})
+  var slide = new Slide(width, height, "out");
+  var l1 = new THREE.ImageLoader();
+  l1.setCrossOrigin("Anonymous");
+  l1.load("../img/hk.jpg", function(img) {
+    slide.setImage(img);
+  });
   root.scene.add(slide);
 
-  var slide2 = new Slide(width, height, 'in');
+  var slide2 = new Slide(width, height, "in");
   var l2 = new THREE.ImageLoader();
-	l2.setCrossOrigin('Anonymous');
-	l2.load('../img/rng1.jpg', function(img) {
-		slide2.setImage(img);
-	})
-	
+  l2.setCrossOrigin("Anonymous");
+  l2.load("../img/rng1.jpg", function(img) {
+    slide2.setImage(img);
+  });
+
   root.scene.add(slide2);
 
-  var tl = new TimelineMax({repeat:-1, repeatDelay:1.0, yoyo: true});
+  var tl = new TimelineMax({ repeat: -1, repeatDelay: 1.0, yoyo: true });
 
   tl.add(slide.transition(), 0);
   tl.add(slide2.transition(), 0);
 
   createTweenScrubber(tl);
 
-  window.addEventListener('keyup', function(e) {
+  window.addEventListener("keyup", function(e) {
     if (e.keyCode === 80) {
       tl.paused(!tl.paused());
     }
@@ -78,11 +69,11 @@ function Slide(width, height, animationPhase) {
 
   geometry.bufferUVs();
 
-  var aAnimation = geometry.createAttribute('aAnimation', 2);
-  var aStartPosition = geometry.createAttribute('aStartPosition', 3);
-  var aControl0 = geometry.createAttribute('aControl0', 3);
-  var aControl1 = geometry.createAttribute('aControl1', 3);
-  var aEndPosition = geometry.createAttribute('aEndPosition', 3);
+  var aAnimation = geometry.createAttribute("aAnimation", 2);
+  var aStartPosition = geometry.createAttribute("aStartPosition", 3);
+  var aControl0 = geometry.createAttribute("aControl0", 3);
+  var aControl1 = geometry.createAttribute("aControl1", 3);
+  var aEndPosition = geometry.createAttribute("aEndPosition", 3);
 
   var i, i2, i3, i4, v;
 
@@ -121,24 +112,46 @@ function Slide(width, height, animationPhase) {
     return tempPoint;
   }
 
-  for (i = 0, i2 = 0, i3 = 0, i4 = 0; i < geometry.faceCount; i++, i2 += 6, i3 += 9, i4 += 12) {
+  for (
+    i = 0, i2 = 0, i3 = 0, i4 = 0;
+    i < geometry.faceCount;
+    i++, i2 += 6, i3 += 9, i4 += 12
+  ) {
     var face = plane.faces[i];
     var centroid = THREE.BAS.Utils.computeCentroid(plane, face);
 
     // animation
     var duration = THREE.Math.randFloat(minDuration, maxDuration);
-    var delayX = THREE.Math.mapLinear(centroid.x, -width * 0.5, width * 0.5, 0.0, maxDelayX);
+    var delayX = THREE.Math.mapLinear(
+      centroid.x,
+      -width * 0.5,
+      width * 0.5,
+      0.0,
+      maxDelayX
+    );
     var delayY;
 
-    if (animationPhase === 'in') {
-      delayY = THREE.Math.mapLinear(Math.abs(centroid.y), 0, height * 0.5, 0.0, maxDelayY)
-    }
-    else {
-      delayY = THREE.Math.mapLinear(Math.abs(centroid.y), 0, height * 0.5, maxDelayY, 0.0)
+    if (animationPhase === "in") {
+      delayY = THREE.Math.mapLinear(
+        Math.abs(centroid.y),
+        0,
+        height * 0.5,
+        0.0,
+        maxDelayY
+      );
+    } else {
+      delayY = THREE.Math.mapLinear(
+        Math.abs(centroid.y),
+        0,
+        height * 0.5,
+        maxDelayY,
+        0.0
+      );
     }
 
     for (v = 0; v < 6; v += 2) {
-      aAnimation.array[i2 + v]     = delayX + delayY + (Math.random() * stretch * duration);
+      aAnimation.array[i2 + v] =
+        delayX + delayY + Math.random() * stretch * duration;
       aAnimation.array[i2 + v + 1] = duration;
     }
 
@@ -147,29 +160,29 @@ function Slide(width, height, animationPhase) {
     endPosition.copy(centroid);
     startPosition.copy(centroid);
 
-    if (animationPhase === 'in') {
+    if (animationPhase === "in") {
       control0.copy(centroid).sub(getControlPoint0(centroid));
       control1.copy(centroid).sub(getControlPoint1(centroid));
-    }
-    else { // out
+    } else {
+      // out
       control0.copy(centroid).add(getControlPoint0(centroid));
       control1.copy(centroid).add(getControlPoint1(centroid));
     }
 
     for (v = 0; v < 9; v += 3) {
-      aStartPosition.array[i3 + v]     = startPosition.x;
+      aStartPosition.array[i3 + v] = startPosition.x;
       aStartPosition.array[i3 + v + 1] = startPosition.y;
       aStartPosition.array[i3 + v + 2] = startPosition.z;
 
-      aControl0.array[i3 + v]     = control0.x;
+      aControl0.array[i3 + v] = control0.x;
       aControl0.array[i3 + v + 1] = control0.y;
       aControl0.array[i3 + v + 2] = control0.z;
 
-      aControl1.array[i3 + v]     = control1.x;
+      aControl1.array[i3 + v] = control1.x;
       aControl1.array[i3 + v + 1] = control1.y;
       aControl1.array[i3 + v + 2] = control1.z;
 
-      aEndPosition.array[i3 + v]     = endPosition.x;
+      aEndPosition.array[i3 + v] = endPosition.x;
       aEndPosition.array[i3 + v + 1] = endPosition.y;
       aEndPosition.array[i3 + v + 2] = endPosition.z;
     }
@@ -180,36 +193,38 @@ function Slide(width, height, animationPhase) {
       shading: THREE.FlatShading,
       side: THREE.DoubleSide,
       uniforms: {
-        uTime: {type: 'f', value: 0}
+        uTime: { type: "f", value: 0 }
       },
       shaderFunctions: [
-        THREE.BAS.ShaderChunk['cubic_bezier'],
+        THREE.BAS.ShaderChunk["cubic_bezier"],
         //THREE.BAS.ShaderChunk[(animationPhase === 'in' ? 'ease_out_cubic' : 'ease_in_cubic')],
-        THREE.BAS.ShaderChunk['ease_in_out_cubic'],
-        THREE.BAS.ShaderChunk['quaternion_rotation']
+        THREE.BAS.ShaderChunk["ease_in_out_cubic"],
+        THREE.BAS.ShaderChunk["quaternion_rotation"]
       ],
       shaderParameters: [
-        'uniform float uTime;',
-        'attribute vec2 aAnimation;',
-        'attribute vec3 aStartPosition;',
-        'attribute vec3 aControl0;',
-        'attribute vec3 aControl1;',
-        'attribute vec3 aEndPosition;',
+        "uniform float uTime;",
+        "attribute vec2 aAnimation;",
+        "attribute vec3 aStartPosition;",
+        "attribute vec3 aControl0;",
+        "attribute vec3 aControl1;",
+        "attribute vec3 aEndPosition;"
       ],
       shaderVertexInit: [
-        'float tDelay = aAnimation.x;',
-        'float tDuration = aAnimation.y;',
-        'float tTime = clamp(uTime - tDelay, 0.0, tDuration);',
-        'float tProgress = ease(tTime, 0.0, 1.0, tDuration);'
+        "float tDelay = aAnimation.x;",
+        "float tDuration = aAnimation.y;",
+        "float tTime = clamp(uTime - tDelay, 0.0, tDuration);",
+        "float tProgress = ease(tTime, 0.0, 1.0, tDuration);"
         //'float tProgress = tTime / tDuration;'
       ],
       shaderTransformPosition: [
-        (animationPhase === 'in' ? 'transformed *= tProgress;' : 'transformed *= 1.0 - tProgress;'),
-        'transformed += cubicBezier(aStartPosition, aControl0, aControl1, aEndPosition, tProgress);'
+        animationPhase === "in"
+          ? "transformed *= tProgress;"
+          : "transformed *= 1.0 - tProgress;",
+        "transformed += cubicBezier(aStartPosition, aControl0, aControl1, aEndPosition, tProgress);"
       ]
     },
     {
-      map: new THREE.Texture(),
+      map: new THREE.Texture()
     }
   );
 
@@ -219,12 +234,12 @@ function Slide(width, height, animationPhase) {
 }
 Slide.prototype = Object.create(THREE.Mesh.prototype);
 Slide.prototype.constructor = Slide;
-Object.defineProperty(Slide.prototype, 'time', {
-  get: function () {
-    return this.material.uniforms['uTime'].value;
+Object.defineProperty(Slide.prototype, "time", {
+  get: function() {
+    return this.material.uniforms["uTime"].value;
   },
-  set: function (v) {
-    this.material.uniforms['uTime'].value = v;
+  set: function(v) {
+    this.material.uniforms["uTime"].value = v;
   }
 });
 
@@ -234,17 +249,23 @@ Slide.prototype.setImage = function(image) {
 };
 
 Slide.prototype.transition = function() {
-  return TweenMax.fromTo(this, 3.0, {time:0.0}, {time:this.totalDuration, ease:Power0.easeInOut});
+  return TweenMax.fromTo(
+    this,
+    3.0,
+    { time: 0.0 },
+    { time: this.totalDuration, ease: Power0.easeInOut }
+  );
 };
-
 
 function SlideGeometry(model) {
   THREE.BAS.ModelBufferGeometry.call(this, model);
 }
-SlideGeometry.prototype = Object.create(THREE.BAS.ModelBufferGeometry.prototype);
+SlideGeometry.prototype = Object.create(
+  THREE.BAS.ModelBufferGeometry.prototype
+);
 SlideGeometry.prototype.constructor = SlideGeometry;
-SlideGeometry.prototype.bufferPositions = function () {
-  var positionBuffer = this.createAttribute('position', 3).array;
+SlideGeometry.prototype.bufferPositions = function() {
+  var positionBuffer = this.createAttribute("position", 3).array;
 
   for (var i = 0; i < this.faceCount; i++) {
     var face = this.modelGeometry.faces[i];
@@ -254,36 +275,40 @@ SlideGeometry.prototype.bufferPositions = function () {
     var b = this.modelGeometry.vertices[face.b];
     var c = this.modelGeometry.vertices[face.c];
 
-    positionBuffer[face.a * 3]     = a.x - centroid.x;
+    positionBuffer[face.a * 3] = a.x - centroid.x;
     positionBuffer[face.a * 3 + 1] = a.y - centroid.y;
     positionBuffer[face.a * 3 + 2] = a.z - centroid.z;
 
-    positionBuffer[face.b * 3]     = b.x - centroid.x;
+    positionBuffer[face.b * 3] = b.x - centroid.x;
     positionBuffer[face.b * 3 + 1] = b.y - centroid.y;
     positionBuffer[face.b * 3 + 2] = b.z - centroid.z;
 
-    positionBuffer[face.c * 3]     = c.x - centroid.x;
+    positionBuffer[face.c * 3] = c.x - centroid.x;
     positionBuffer[face.c * 3 + 1] = c.y - centroid.y;
     positionBuffer[face.c * 3 + 2] = c.z - centroid.z;
   }
 };
 
-
 function THREERoot(params) {
-  params = utils.extend({
-    fov: 60,
-    zNear: 10,
-    zFar: 100000,
+  params = utils.extend(
+    {
+      fov: 60,
+      zNear: 10,
+      zFar: 100000,
 
-    createCameraControls: true
-  }, params);
+      createCameraControls: true
+    },
+    params
+  );
 
   this.renderer = new THREE.WebGLRenderer({
     antialias: params.antialias,
     alpha: true
   });
   this.renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
-  document.getElementById('three-container').appendChild(this.renderer.domElement);
+  document
+    .getElementById("three-container")
+    .appendChild(this.renderer.domElement);
 
   this.camera = new THREE.PerspectiveCamera(
     params.fov,
@@ -295,7 +320,10 @@ function THREERoot(params) {
   this.scene = new THREE.Scene();
 
   if (params.createCameraControls) {
-    this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+    this.controls = new THREE.OrbitControls(
+      this.camera,
+      this.renderer.domElement
+    );
   }
 
   this.resize = this.resize.bind(this);
@@ -304,21 +332,21 @@ function THREERoot(params) {
   this.resize();
   this.tick();
 
-  window.addEventListener('resize', this.resize, false);
+  window.addEventListener("resize", this.resize, false);
 }
 THREERoot.prototype = {
-  tick: function () {
+  tick: function() {
     this.update();
     this.render();
     requestAnimationFrame(this.tick);
   },
-  update: function () {
+  update: function() {
     this.controls && this.controls.update();
   },
-  render: function () {
+  render: function() {
     this.renderer.render(this.scene, this.camera);
   },
-  resize: function () {
+  resize: function() {
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
 
@@ -326,30 +354,29 @@ THREERoot.prototype = {
   }
 };
 
-
 var utils = {
-  extend: function (dst, src) {
+  extend: function(dst, src) {
     for (var key in src) {
       dst[key] = src[key];
     }
 
     return dst;
   },
-  randSign: function () {
+  randSign: function() {
     return Math.random() > 0.5 ? 1 : -1;
   },
-  ease: function (ease, t, b, c, d) {
+  ease: function(ease, t, b, c, d) {
     return b + ease.getRatio(t / d) * c;
   },
-  fibSpherePoint: (function () {
-    var vec = {x: 0, y: 0, z: 0};
+  fibSpherePoint: (function() {
+    var vec = { x: 0, y: 0, z: 0 };
     var G = Math.PI * (3 - Math.sqrt(5));
 
-    return function (i, n, radius) {
+    return function(i, n, radius) {
       var step = 2.0 / n;
       var r, phi;
 
-      vec.y = i * step - 1 + (step * 0.5);
+      vec.y = i * step - 1 + step * 0.5;
       r = Math.sqrt(1 - vec.y * vec.y);
       phi = i * G;
       vec.x = Math.cos(phi) * r;
@@ -362,10 +389,10 @@ var utils = {
       vec.z *= radius;
 
       return vec;
-    }
+    };
   })(),
-  spherePoint: (function () {
-    return function (u, v) {
+  spherePoint: (function() {
+    return function(u, v) {
       u === undefined && (u = Math.random());
       v === undefined && (v = Math.random());
 
@@ -373,12 +400,12 @@ var utils = {
       var phi = Math.acos(2 * v - 1);
 
       var vec = {};
-      vec.x = (Math.sin(phi) * Math.cos(theta));
-      vec.y = (Math.sin(phi) * Math.sin(theta));
-      vec.z = (Math.cos(phi));
+      vec.x = Math.sin(phi) * Math.cos(theta);
+      vec.y = Math.sin(phi) * Math.sin(theta);
+      vec.z = Math.cos(phi);
 
       return vec;
-    }
+    };
   })()
 };
 
@@ -386,16 +413,16 @@ function createTweenScrubber(tween, seekSpeed) {
   seekSpeed = seekSpeed || 0.001;
 
   function stop() {
-    TweenMax.to(tween, 1, {timeScale:0});
+    TweenMax.to(tween, 1, { timeScale: 0 });
   }
 
   function resume() {
-    TweenMax.to(tween, 1, {timeScale:1});
+    TweenMax.to(tween, 1, { timeScale: 1 });
   }
 
   function seek(dx) {
     var progress = tween.progress();
-    var p = THREE.Math.clamp((progress + (dx * seekSpeed)), 0, 1);
+    var p = THREE.Math.clamp(progress + dx * seekSpeed, 0, 1);
 
     tween.progress(p);
   }
@@ -404,20 +431,20 @@ function createTweenScrubber(tween, seekSpeed) {
 
   // desktop
   var mouseDown = false;
-  document.body.style.cursor = 'pointer';
+  document.body.style.cursor = "pointer";
 
-  window.addEventListener('mousedown', function(e) {
+  window.addEventListener("mousedown", function(e) {
     mouseDown = true;
-    document.body.style.cursor = 'ew-resize';
+    document.body.style.cursor = "ew-resize";
     _cx = e.clientX;
     stop();
   });
-  window.addEventListener('mouseup', function(e) {
+  window.addEventListener("mouseup", function(e) {
     mouseDown = false;
-    document.body.style.cursor = 'pointer';
+    document.body.style.cursor = "pointer";
     resume();
   });
-  window.addEventListener('mousemove', function(e) {
+  window.addEventListener("mousemove", function(e) {
     if (mouseDown === true) {
       var cx = e.clientX;
       var dx = cx - _cx;
@@ -427,16 +454,16 @@ function createTweenScrubber(tween, seekSpeed) {
     }
   });
   // mobile
-  window.addEventListener('touchstart', function(e) {
+  window.addEventListener("touchstart", function(e) {
     _cx = e.touches[0].clientX;
     stop();
     e.preventDefault();
   });
-  window.addEventListener('touchend', function(e) {
+  window.addEventListener("touchend", function(e) {
     resume();
     e.preventDefault();
   });
-  window.addEventListener('touchmove', function(e) {
+  window.addEventListener("touchmove", function(e) {
     var cx = e.touches[0].clientX;
     var dx = cx - _cx;
     _cx = cx;
@@ -458,54 +485,39 @@ function createTweenScrubber(tween, seekSpeed) {
 //          sliders about page ENDS
 ////////////////////////////////////////////////////////////
 
-
 //===============Counter===========================//
 (function($) {
   "use strict";
-  function count($this){
-  var current = parseInt($this.html(), 10);
-  current = current + 1; /* Where 50 is increment */	
-  $this.html(++current);
-    if(current > $this.data('count')){
-      $this.html($this.data('count'));
-    } else {    
-      setTimeout(function(){count($this)},1);
+  function count($this) {
+    var current = parseInt($this.html(), 10);
+    current = current + 1; /* Where 50 is increment */
+    $this.html(++current);
+    if (current > $this.data("count")) {
+      $this.html($this.data("count"));
+    } else {
+      setTimeout(function() {
+        count($this);
+      }, 1);
     }
-  }        	
+  }
   $(".stat-count").each(function() {
-    $(this).data('count', parseInt($(this).html(), 10));
-    $(this).html('0');
+    $(this).data("count", parseInt($(this).html(), 10));
+    $(this).html("0");
     count($(this));
   });
- })(jQuery);
-  //===============Counter-END===========================//
-
+})(jQuery);
+//===============Counter-END===========================//
 
 //===============smooth scroll-BEGINS===========================//
-  
+
 var scroll = new SmoothScroll('a[href*="#"]', {
-    speed: 1500
-  });
-  //===============smooth scroll-END===========================//
+  speed: 1500
+});
+//===============smooth scroll-END===========================//
 
+//===============preloader BEGINS===========================//
 
-
-   //===============preloader BEGINS===========================//
-
-  //===============preloader ENDS===========================//
-
-
-
-
-
-
-
-
-
-
-
-
-
+//===============preloader ENDS===========================//
 
 // const reloadOrders = (RESDATA) => { //orders = res.data
 //   console.log("line15 controller. js");
@@ -515,28 +527,27 @@ var scroll = new SmoothScroll('a[href*="#"]', {
 //   // let arr = []
 //   // for(let i = 0; i< orders.length; i++){
 //   // arr.push({orders:orders[0], price:'$50'})
-//   $("#orders").html(ordersTemplate({ 
+//   $("#orders").html(ordersTemplate({
 //     someOrders:RESDATA
-    
-//   })); 
+
+//   }));
 // }
 // // console.log(arr)
-   
+
 // // };
 
 // $(document).ready(function () {
-  
 
-  // axios
-  //   .get("/api/orders/")
-  //   .then(res => {
-  //     console.log("LINE 52 controller.js");
-  //     console.log('getting orders(RES.DATA) line 92 controllerJS', res.data); 
-  //     reloadOrders(res.data)
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+// axios
+//   .get("/api/orders/")
+//   .then(res => {
+//     console.log("LINE 52 controller.js");
+//     console.log('getting orders(RES.DATA) line 92 controllerJS', res.data);
+//     reloadOrders(res.data)
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
 // $('.dynamic').on('click', '.add-to-cart-btn', function(event){
 //   event.preventDefault()
@@ -545,7 +556,6 @@ var scroll = new SmoothScroll('a[href*="#"]', {
 
 //     console.log(event.target);
 //     var valProduct = event.target.id;
-    
 
 //     console.log(valProduct);
 //       addToCart(valProduct)
@@ -559,30 +569,27 @@ var scroll = new SmoothScroll('a[href*="#"]', {
 
 //     console.log(event.target);
 //     var valProduct = event.target.id;
-    
+
 //     console.log(valProduct);
 //       addToCart(valProduct)
 
 // })
 
-
 // function addToCart(valProduct) {
 //   event.preventDefault();
 //   console.log('okay?')
-
 
 //   axios.post('/api/orders',{
 //     newOrder: valProduct
 //   }).then((res)=>{
 //     console.log("LINE 77 controller.js");
-    
+
 //     console.log(res.data);
 //   }).catch((err)=>{
-//     console.log(err); 
+//     console.log(err);
 //   })
 
 // }
-
 
 // // const calculateTotal =()=>{
 // //     let sum = 0;
