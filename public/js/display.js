@@ -82,3 +82,22 @@ function addToCart(food_item_name, food_item_price) {
   })
 
 }
+
+
+$(document).ready(function () {
+  $.ajax({
+      type: "GET",
+      url: url,
+      dataType: 'knex',
+      success: function (result) {
+          if (result.isAuthenticated() == "true") {
+              $("#").show();
+              $("#notlogin").hide();
+
+          } else {
+              $("#withlogin").hide();
+              $("#notlogin").show();
+          }
+      }
+  });
+});

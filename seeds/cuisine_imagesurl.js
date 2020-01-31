@@ -5,14 +5,14 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex('cuisine_type').insert([
-        {cuisine_name: 'Italian', image_url:'https://images.unsplash.com/photo-1572262371552-fc095665f55b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2259&q=80'},
-        {cuisine_name: 'Japanese', image_url:'https://images.unsplash.com/photo-1554905093-c6f47e7b9efa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80'},
-        {cuisine_name: 'Chinese', image_url:'https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2629&q=80'},
-        {cuisine_name: 'Western', image_url:'https://images.unsplash.com/photo-1460122109654-7e46ab4fc9b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1980&q=80'},
-        {cuisine_name: 'Korean', image_url:'https://images.unsplash.com/photo-1487769723072-0e6602799af7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80'},
-        {cuisine_name: 'Thai', image_url:'https://images.unsplash.com/photo-1441850605338-1b0b5a22e7b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80'},
-        {cuisine_name: 'Desserts', image_url:'https://images.unsplash.com/photo-1455560460927-c48345dd421d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'},
-        {cuisine_name: 'Bubble Tea', image_url:'https://images.unsplash.com/photo-1525803377221-4f6ccdaa5133?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2253&q=80'},
+        {cuisine_name: 'Italian', image_url:'https://www.sassyhongkong.com/wp-content/uploads/2019/12/eat-drink-restaurants-michelin-guide-2020.jpg'},
+        {cuisine_name: 'Japanese', image_url:'https://www.sassyhongkong.com/wp-content/uploads/2019/08/eat-drink-dining-city-restaurant-week-book-hero.jpeg'},
+        {cuisine_name: 'Chinese', image_url:'https://www.sassyhongkong.com/wp-content/uploads/2013/10/duddells-dim-sum-hong-kong-500x500.jpg'},
+        {cuisine_name: 'Alcohol', image_url:'https://www.sassyhongkong.com/wp-content/uploads/2019/09/eat-drink-october-bars-feather-and-bone.jpg'},
+        {cuisine_name: 'Korean', image_url:'https://pbs.twimg.com/media/DohY3AWWwAAbjTF.jpg'},
+        {cuisine_name: 'Thai', image_url:'https://www.sassyhongkong.com/wp-content/uploads/2013/10/chachawan-thai-restaurant-500x500.jpg'},
+        {cuisine_name: 'Desserts', image_url:'https://images.unsplash.com/photo-1531240062960-4842b265a1ad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1706&q=80'},
+        {cuisine_name: 'Alcoholic Bubble Tea', image_url:'https://nestheprint.com/wp-content/uploads/2019/10/How-to-make-Bubble-Tea-8-500x500.jpg'},
       ]);
     });
 };

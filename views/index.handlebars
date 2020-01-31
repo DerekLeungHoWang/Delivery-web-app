@@ -9,42 +9,104 @@
 </head>
 
 <body>
+    <div class='welcome'>
 
-    <h1>HOME</h1>
+        {{!-- DIV --}}
+        <div class='intro'>
+            <div id='enterSite'>
+                <h1 id='slogan'>PlaceHolder</h1>
+                <button id='exploreButton'>Explore</button>
+            </div>
+        </div>
 
-    <form class="form-inline my-2 my-lg-0" id="search-cuisine">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-    <h1 class="black-h1">Category</h1>
-    <div id="cuisine-list">
-        <ul>
-            <li> <a href="/italian">
-                    <h2>Italian</h2>
-                </a></li>
 
-            <li> <a href="/japanese">
-                    <h2>Japanese</h2>
-                </a></li>
-            <li> <a href="/Chinese">
-                    <h2>Chinese</h2>
-                </a> </li>
-        </ul>
-    </div>
+        {{!-- cuisine div --}}
+        <div class='category'>
 
-    <div class="cuisineContainer">
-        <div class='cuisineType'>
-            {{#each cuisineData}}
-            <a href="/{{cuisine_name}}">
-                <h2 class='cuisineName'>{{cuisine_name}}</h2>
-                <img class='cuisine' src="{{image_url}}" alt="">
-            </a>
-            {{/each}}
+            <div class='cuisineSlogan'>
+                <h2>Browse our selection</h2>
+            </div>
+
+            <div id="cuisine-list">
+                {{#each cuisineData}}
+                <div id='cuisine'>
+                    <a href="/{{cuisine_name}}">
+                        <img id='cuisinePic' src="{{image_url}}">
+                        <h2 id='cuisineName'>{{cuisine_name}}</h2>
+                    </a>
+                </div>
+                {{/each}}
+            </div>
+
+            <div id='empty'></div>
+        </div>
+
+        {{!-- DIV --}}
+
+        <div class='deliveryInfo'>
+
+            <div class='hideAll'>
+                <form class="form-inline my-2 my-lg-0" id="search-cuisine">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    {{!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> --}}
+                </form>
+
+                <div id='allRestList'>
+                    {{#each allRestData}}
+                    <div id='allRestDiv'>
+                        <a class='filter' href="/{{cuisine}}/{{id}}">
+                            <img class='allRestImage' src="{{path_to_img}}">
+                            <h4>{{restaurants_name}}</h4>
+                        </a>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
 
         </div>
+
+        {{!-- Div --}}
+        <div class='row explore'>
+            <div>
+                <img id='cascade1'>
+                <div id='intro1'>
+                    <h2>We deliver more than dinner.</h2>
+                    <p>Get your meals and alcohol delivered in the time it takes for you to go to the bathroom and call your parents, so you can spend your time living your best life. Whether you need a handle of vodka or a gallon of vodka, we get it.</p>
+                </div>
+            </div>
+            <div>
+                <div id='intro2'>
+                    <h2>All of the flavor, none of the wait.</h2>
+                    <p>No fees, just fast service. Order takeout with DDD Pickup and we’ll let you know when it’s ready.
+                        No wallet. No wait.</p>
+                </div>
+                <img id='cascade2'>
+            </div>
+            <div>
+                <img id='cascade3'>
+                <div id='intro3'>
+                    <h2>The only gift that delivers.</h2>
+                    <p>They're customizable, fun to receive, and delivered instantly. DDD Gift Cards can be used
+                        to buy anything in your city, delivered in minutes.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        {{!-- Div --}}
+        <div class='readyNow'>
+            <div id='readyNowInfo'>
+                <h2>Ready to order?</h2>
+                <p>Browse local restaurants and businesses available for delivery by signing up and login in!</p>
+            </div>
+        </div>
+
+
+
+
     </div>
 
-<a href='/secret'>Press me?</a>
+
 </body>
 
 </html>

@@ -39,7 +39,7 @@ class RestService {
 
   listJp() {
     return new Promise((resolve, reject) => {
-      let data = this.knex
+      let dataAll = this.knex
         .select(
           "id",
           "restaurants_name",
@@ -50,13 +50,32 @@ class RestService {
         .from("restaurants")
         .where("cuisine", "Japanese");
 
-      return data.then(rows => {
+      return dataAll.then(rows => {
         // console.log(rows, 'data obtained');
         // console.log(rows)
         resolve(rows);
       });
     });
   }
+
+  listAll(){
+    return new Promise((resolve, reject)=>{
+      let data = this.knex
+      .select(
+        "id",
+        "restaurants_name",
+        "opening_hours",
+        "cuisine",
+        "path_to_img"
+      )
+      .from("restaurants");
+
+      return data.then(rows => {
+        resolve(rows);
+      });
+    });
+  }
+
   // for dynamically rendering cuisine images
   cuisineType() {
     return new Promise((resolve, reject) => {
@@ -76,9 +95,5 @@ class RestService {
   }
 }
 // console.log(knexConfig)
-const knex = require("knex")(knexConfig);
-const hi = new RestService(knex);
-
-hi.list();
 
 module.exports = RestService;

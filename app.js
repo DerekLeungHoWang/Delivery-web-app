@@ -5,7 +5,13 @@ const https = require("https");
 const express = require("express");
 const hbs = require("express-handlebars");
 const app = express();
-const path = require("path");
+const PATH = require("path");
+//handlebars views 
+const Vision = require('vision')
+//dotenv
+require('dotenv').config();
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 //================================//
 
@@ -25,22 +31,24 @@ app.use(
     resave: false,
     saveUninitialized: true
   })
-);
-//has to be above setuppassport
-setupPassport(app);
-
-//template engine
-app.engine("handlebars", hbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
+  );
+  //has to be above setuppassport
+  setupPassport(app);
+  //======================================AUTH=================//
+  app.use("/", router);
+  //template engine
+  app.engine("handlebars", hbs({ 
+    defaultLayout: "main",
+    layoutsDir: PATH.resolve(__dirname, 'views/layouts'),
+    partialsDir: PATH.resolve(__dirname, 'views/partials')
+  }));
+  app.set("view engine", "handlebars");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static("public"));
 app.use(express.static("router"));
-
-//======================================AUTH=================//
-app.use("/", router);
 
 //======================================ROUTERS================//
 //===============Restaurant Service and Router//
@@ -62,33 +70,42 @@ const FoodItemRouter = require("./router/FoodItemRouter");
 const foodItemService = new FoodItemService(knex);
 app.use("/api/food_item", new FoodItemRouter(foodItemService).router());
 
-// //app.get
-app.get("/", (req, res) => {
- 
-  if(req.session.user){
-    console.log("line 80 ==========================>")
+//reviewService and Router//
+// const ReviewService = require("./service/ReviewService");
+// const ReviewRouter = require("./router/ReviewRouter");
+// const reviewService = new ReviewService(knex);
+// app.use("/api/review", new ReviewRouter(reviewService).router());
 
-  } else {
-    restService.cuisineType().then(data =>{
-    res.render("index", {
-      cuisineData: data,
-    });
-     })
-  }
-});
+
+// VIEWS -------------------------------------------------------//
+//app.get
+
+app.get('/', (req, res)=>{
+  restService.cuisineType().then(data=>{
+    restService.listAll().then(dataAll =>{
+      if (res.locals.user = req.user || null) {
+        res.render('index', {layout: 'main2', cuisineData: data, allRestData: dataAll});
+      } else {
+        res.render('index', {layout: 'main', cuisineData: data, allRestData: dataAll});
+      }
+    })
+  })
+})
 
 // //===================================ITALIAN ROUTE============================
-app.get("/italian", (req, res) => {
 
+app.get('/italian', (req, res)=>{
   restService.list().then(data => {
-    res.render("italian", {
-      italianData: data
-    });
-  });
-});
+    if (res.locals.user = req.user || null) {
+      res.render('italian', {layout: 'main2', italianData: data});
+    } else {
+      res.render('italian', {layout: 'main', italianData: data});
+    }
+  })
+})
+
 //Italian restaurants dynamic render
 app.get("/italian/:id", (req, res) => {
-  console.log(req.params);
   foodItemService.list(req.params.id).then(data => {
     res.render("italianMenu", {
       italianMenuData: data
@@ -97,14 +114,16 @@ app.get("/italian/:id", (req, res) => {
 });
 
 //Japanese Restaurants render
-app.get("/japanese", (req, res) => {
 
+app.get('/japanese', (req, res)=>{
   restService.listJp().then(data => {
-    res.render("japanese", {
-      japaneseData: data
-    });
-  });
-});
+    if (res.locals.user = req.user || null) {
+      res.render('japanese', {layout: 'main2', japaneseData: data});
+    } else {
+      res.render('japanese', {layout: 'main', japaneseData: data});
+    }
+  })
+})
 
 app.get("/japanese/:id", (req, res) => {
   foodItemService.list(req.params.id).then(data => {
@@ -134,13 +153,16 @@ app.get("/cart/checkout", (req, res) => {
 app.get("/userprofile", (req, res) => {
   res.render("userprofile");
 });
+//STRIPE
 
-// app.post("/");
 
 const options = {
   cert: fs.readFileSync("./localhost.crt"),
   key: fs.readFileSync("./localhost.key")
 };
+
+
+
 
 https.createServer(options, app).listen(2000);
 

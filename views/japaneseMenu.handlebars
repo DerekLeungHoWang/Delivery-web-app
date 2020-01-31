@@ -1,9 +1,54 @@
-    {{#each japaneseMenuData}}
+<div class='jpMenuPage'>
+
+    <div id='jpMenuIntro'>
+        <div id='jpMenuText'>
+        <h2>Love Cafe (Causeway Bay)</h2>
+        <p>$. Japanese- Cosy, Casual</p>
+        <p>0.1 &#9829 (99) We are that good</p>
+        <p>Yiu Wa St, No.3, Bartlock Centre, 1203</p>
+        </div>
+    </div>
+
+<div class='jpMenuContainer'>
+
     <div class='jpFood'>
-        <div class=''> 
+        {{#each japaneseMenuData}}
+        <div id='jpFoodItem'>
             <img class='jpFoodImg' src="{{food_image}}">
             <p>{{food_name}}</p>
             <p>${{food_price}}</p>
         </div>
+        {{/each}}
     </div>
-    {{/each}}
+
+    <div class='jpRestRight'>
+        <img class='jpRestPhoto'></div>
+
+
+
+
+    {{!-- <div class="reviewSection row">
+        <div class="col-lg-6">
+            <h4>Welcome back, {{user}}</h4>
+            <p>Review us!</p>
+            <form id="add" class="row">
+                <div class="col col-sm-9">
+                    <textarea type="text" name="note"></textarea>
+                </div>
+                <div class="col col-sm-3">
+                    <input type="submit" value="Add">
+                </div>
+            </form>
+        </div>
+
+        <div class="col-lg-6">
+            <h4>Reviews</h4>
+            <div id="notes">
+
+            </div>
+        </div>
+    </div> --}}
+
+</div>
+
+</div>
