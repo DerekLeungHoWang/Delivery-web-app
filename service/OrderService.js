@@ -5,7 +5,7 @@ class OrderService {
     this.knex = knex;
   }
 
-  add(user,content) {
+  add(user,order) {
     let query = this.knex
       .select("id")
       .from("users")
@@ -16,19 +16,31 @@ class OrderService {
     return query.then(rows => {
       if (rows.length === 1) {
         console.log(rows);
-
+        console.log('order======<><><><>><>>>>>>>>>>><><<><<<<><>');
+        let data;
+        let sum = 0;
+        for(let i = 0; i< order.length;i++){
+           data = JSON.parse(order[i].row_total);
+          sum+=data;
+            
+        }
+        console.log(sum, 'line 27 orderservicejs');
+     
         return this.knex
           .insert({
             user_id: rows[0].id,
             status: false,
-            amount: 999
+            amount: sum
           })
           .into("orders");
+          
       } else {
         throw new Error("Cannot add a note to a user that doesnt exist");
       }
     });
   }
+
+  
 
   list(user) {
     if (typeof user !== "undefined") {
@@ -52,42 +64,4 @@ class OrderService {
 
 module.exports = OrderService;
 
-// add(newOrder,user){
-//     console.log(newOrder,user);
-//     console.log(this.orders, 'line 43 ===========>>>>>');
-//     let query = this.knex
-//     .select('id')
-//     .from('users')
-//     .where('users.username', user);
 
-//         return query.then((rows)=>{
-//            console.log(rows[0].id);
-//            return this.knex.insert({
-//             content:newOrder,
-//             user_id: rows[0].id
-
-//         }).into('orders')
-
-//         })
-// }
-
-// list(user){
-//     if(typeof user !== undefined){
-//         let query = this.knex.select('food_name','food_price', 'food_image', 'restaurants_id')
-//         .from('food_item')
-//         // .where('users.username', user)
-
-//         console.log('line 43 orderserviceJS');
-
-//         return query.then((rows)=>{
-//             console.log('line 45 Orderservice JS');
-//             return rows.map(row=>({
-//                 food_item: row.food_name,
-//                 food_price:row.food_price,
-//                 food_image: row.food_image,
-//                 restaurants_id:row.restaurants_id
-//             }));
-//         });
-//     }
-
-// }

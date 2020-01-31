@@ -16,7 +16,7 @@ class FoodItemRouter{
 
         let restParams = req.params.id
         console.log("LINE 16 router router .js <<<<>>>");
-        // console.log(req.auth.user)
+       
         
         return this.foodItemService.list(restParams)
         .then((data)=>

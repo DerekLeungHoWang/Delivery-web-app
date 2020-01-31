@@ -62,6 +62,14 @@ const FoodItemRouter = require("./router/FoodItemRouter");
 const foodItemService = new FoodItemService(knex);
 app.use("/api/food_item", new FoodItemRouter(foodItemService).router());
 
+//OrderItemService and Router//
+const OrderItemService = require("./service/OrderItemService");
+const OrderItemRouter = require("./router/OrderItemRouter");
+const orderItemService = new OrderItemService(knex);
+app.use("/api/order_item", new OrderItemRouter(orderItemService).router());
+
+
+
 // //app.get
 app.get("/", (req, res) => {
  

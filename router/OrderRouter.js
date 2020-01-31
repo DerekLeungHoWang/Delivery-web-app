@@ -39,19 +39,20 @@ class OrderRouter{
         // console.log("LINE 26 ORDER ROUTER JS"); 
         // // console.log(req.session);
         // console.log(req.session.passport.user.email);
-        console.log('post?=========');
+        // console.log('post?=========');
         
-        console.log(req.body.content, "<============== req.body this ")
+        // console.log(req.body.content, "<============== req.body this ")
         return this.orderService.add(req.session.passport.user.email, req.body.content)
-        .then((data)=> {        
-            // console.log(data, "================>line 43 orderROUTER JS");
-            // this.orderService.list(req.session.passport.user.email).then((data)=>{
-            //     console.log(data);
-
-
-                
-            //     res.json(data)
-            // })
+        .then((data)=> { 
+          
+                   
+            // console.log(req.body.content, "<============== req.body this  47__ ")
+            // console.log(data, 'line48 orderrouter');
+            
+            // console.log(req.session.passport.user.email);
+            // console.log(req.body.content, "<============== req.body line 49 router order");
+            // return this.orderService.addToFoodItem(req.session.passport.user.email, req.body.content)
+            
         }) 
         .catch((err)=>res.status(500).json(err));
     }

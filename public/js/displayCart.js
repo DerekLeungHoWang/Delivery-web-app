@@ -207,17 +207,6 @@ class displayCart {
     $("#orders").html(ordersTemplate({ data_final: data_final }));
     console.log(data_final);
 
-    axios
-    .post("/api/orders", {
-      content: data_final
-    })
-    .then(res => {
-      console.log(res.data)
-    })
-    .catch(err => {
-      console.log(err);
-    });
-    
     return data_final;
   }
 
@@ -231,15 +220,14 @@ class displayCart {
     console.log(sum);
     localStorage.setItem("sum", sum);
     console.log(localStorage);
-    if(sum === 0){
+    if (sum === 0) {
       console.log("zero");
-      localStorage.clear()
-      $(".grand-total-value").html('');
-    }else{
+      localStorage.clear();
+      $(".grand-total-value").html("");
+    } else {
       $(".grand-total-value").html(`$HKD ${localStorage.sum}`);
     }
-    return 'nothing'
-   
+    return "nothing";
   }
 
   remove(e) {
@@ -277,7 +265,6 @@ class displayCart {
         ];
       }
       console.log(new_saved);
-     
     }
 
     localStorage.setItem("foodArr", JSON.stringify(new_saved));
@@ -294,7 +281,6 @@ newOrder.getOrder();
 $(document).ready(() => {
   newOrder.reloadOrders();
   newOrder.calculateTotal();
- 
 });
 
 //reloader order after user add to cart
@@ -312,6 +298,34 @@ $(document).on("click", ".remove-item-btn", e => {
   newOrder.remove(e);
   newOrder.reloadOrders();
   newOrder.calculateTotal();
+});
+
+$(".checkout-form").submit(e => {
+  e.preventDefault();
+  let data_final = newOrder.reloadOrders()
+  console.log("clicked this");
+  axios
+    .post("/api/orders", {
+      content: data_final
+    })
+    .then(res => {
+    console.log('checkingout');
+    
+
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+    axios
+    .post("/api/order_item", {
+      content: data_final
+    }).catch(err => {
+      console.log(err);
+    });
+
+
+
 });
 
 console.log(newOrder.getFoodItemImage());
