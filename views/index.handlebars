@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HOME</title>
+    <title>DDD</title>
 </head>
 
 <body>
@@ -14,7 +14,7 @@
         {{!-- DIV --}}
         <div class='intro'>
             <div id='enterSite'>
-                <h1 id='slogan'>Let's have a gander</h1>
+                <h1 id='slogan'>Let's have a Gander</h1>
                 <button type="button" class="btn btn-light" id='exploreButton'>Hungry?</button>
             </div>
         </div>
@@ -45,56 +45,55 @@
 
         <div class='deliveryInfo'>
 
-            <div class='hideAll'>
                 <form class="form-inline my-2 my-lg-0" id="search-cuisine">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    {{!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> --}}
-                </form>
- 
-                <div id='allRestList'>
+                    </form>
+                <ul id='allRestList' style="list-style-type:none">
                     {{#each allRestData}}
-                    <div id='allRestDiv'>
+                    <li id='allRestDiv'>
                         <a class='filter' href="/{{cuisine}}/{{id}}">
                             <img class='allRestImage' src="{{path_to_img}}">
                             <h4>{{restaurants_name}}</h4>
                         </a>
-                    </div>
+                    </li>
                     {{/each}}
-                </div>
-            </div>
+                </ul>
 
         </div>
 
         {{!-- Div --}}
-       
+
         <div class='explore'>
 
             <div class='row no-gutters photoBlock'>
-                
+
                 <div class='col-md-6 col-sm-12 photoDescript'>
-                     <img id='cascade1'>
+                    <img id='cascade1'>
                 </div>
 
                 <div class='col-md-6 col-sm-12 photoDescript'>
                     <div id='centered'>
-                    <h2>#Love it in my mouth</h2>
-                    <p>Get your meals and alcohol delivered in the time it takes for you to go to the bathroom and call your parents, so you can spend your time living your best life. Whether you need a handle of vodka or a gallon of vodka, we get it.</p>
+                        <h2>#Love it in my mouth</h2>
+                        <p>Get your meals and alcohol delivered in the time it takes for you to go to the bathroom and
+                            call your parents, so you can spend your time living your best life. Whether you need a
+                            handle of vodka or a gallon of vodka, we get it.</p>
                     </div>
                 </div>
             </div>
-            
+
 
             <div class='row no-gutters photoBlock'>
                 <div class='col-md-6 col-sm-12 photoDescript'>
                     <div id='centered'>
-                    <h2>All of the flavor, none of the wait.</h2>
-                    <p>No fees, just fast service. Order takeout with DDD Pickup and we’ll let you know when it’s ready.
-                        No wallet. No wait.</p>
-                        </div>
+                        <h2>All of the flavor, none of the wait.</h2>
+                        <p>No fees, just fast service. Order takeout with DDD Pickup and we’ll let you know when it’s
+                            ready.
+                            No wallet. No wait.</p>
+                    </div>
                 </div>
 
                 <div class='col-md-6 col-sxm-12 photoDescript'>
-                <img id='cascade2'>
+                    <img id='cascade2'>
                 </div>
             </div>
 
@@ -102,14 +101,14 @@
             <div class='row no-gutters photoBlock'>
 
                 <div class='col-md-6 col-sm-12 photoDescript'>
-                <img id='cascade3'>
+                    <img id='cascade3'>
                 </div>
 
                 <div class='col-md-6 col-sm-12 photoDescript'>
                     <div id='centered'>
-                    <h2>Not satisfied yet? We offer add-on services.</h2>
-                    <p>Our chefs not only cook food but they can also take a look at your Visual Studio Code.
-                    </p>
+                        <h2>Not satisfied yet? We offer add-on services.</h2>
+                        <p>Our fullstackoverflow chefs not only cook food but they can also take a look at your Visual Studio Code.
+                        </p>
                     </div>
                 </div>
 
@@ -122,7 +121,7 @@
             <div id='readyNowInfo'>
                 <h2>Ready to order?</h2>
                 <p>Browse local restaurants and businesses available for delivery and order now!</p>
-                 <button type="button" class="btn btn-dark">Sign Up Now!</button>
+                <button type="button" class="btn btn-dark">Sign Up Now!</button>
             </div>
 
         </div>

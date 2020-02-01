@@ -20,7 +20,6 @@ exports.seed = function (knex) {
           { restaurants_name: "Day n Nite Master Kama", opening_hours: "0:00 - 24:00", cuisine: "Japanese", path_to_img: "https://seablue.hk/wp-content/uploads/2016/10/20160928_masterkama_01.jpg" },
           { restaurants_name: "Shika Teppan-Yaki", opening_hours: "18:00 - 23:00", cuisine: "Japanese", path_to_img: "https://static7.orstatic.com/userphoto2/photo/11/TA2/05S7M2D4444601FD947332px.jpg" },
           { restaurants_name: "Toretore Hamayaki", opening_hours: "12:00 - 22:00", cuisine: "Japanese", path_to_img: "https://static8.orstatic.com/userphoto/photo/H/E0W/02RQER26B80B6657950982px.jpg" },
-          { restaurants_name: "Firebird", opening_hours: "17:00 - 22:00", cuisine: "Japanese", path_to_img: "https://static6.orstatic.com/userphoto/photo/K/GJZ/039Q3T48FB8CA505683ABApx.jpg" },
           { restaurants_name: "Rock Salt Japanese", opening_hours: "2:00 - 16:30, 18:00 - 23:00", cuisine: "Japanese", path_to_img: "https://static8.orstatic.com/userphoto2/photo/W/PRY/053APZA3F8F36B399FA6D3px.jpg" },
           { restaurants_name: "Ichiran", opening_hours: "12:00 - 24:00", cuisine: "Japanese", path_to_img: "https://cdn.vox-cdn.com/thumbor/ZLFJImcxC8_U6S6cdnWH86ARToU=/0x0:5315x3543/1720x0/filters:focal(0x0:5315x3543):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/10462359/Ichiran_Midtown_West_36.jpg" },
       ]).then(() => {

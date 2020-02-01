@@ -14,18 +14,18 @@ module.exports = express => {
   });
 
   router.get("/login", (req, res) => {
-    res.render("logSign");
+    res.render("logSign", {layout: 'main3'});
   });
 
-  router.get("/signup", (req, res) => {
-    res.render("signup");
-  });
+  // router.get("/signup", (req, res) => {
+  //   res.render("signup");
+  // });
 
 	router.post(
 		"/signedin",
 		passport.authenticate("local-login", {
-			successRedirect: "/",
-			failureRedirect: "/error"
+			successRedirect: "/", 
+      failureRedirect: "/login"
 		})
 	);
 

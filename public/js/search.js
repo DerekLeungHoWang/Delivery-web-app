@@ -5,18 +5,18 @@ const searchBar = document.forms['search-cuisine'].querySelector('input')
 
 searchBar.addEventListener('keyup', function(e){
   const term = e.target.value.toLowerCase();
-  // console.log(term);
+  console.log(term);
   
-  const cuisines = cuisineList.getElementsByClassName('filter');
-  Array.from(cuisines).forEach((allRestDiv)=>{
-    const title = allRestDiv.firstElementChild.textContent 
-    // console.log(title.toLowerCase().indexOf(term))  
-    if(title.toLowerCase().indexOf(term)!= -1){
-        allRestDiv.style.display = 'block';
+  const cuisines = cuisineList.getElementsByTagName('li');
+  Array.from(cuisines).forEach((randomInput)=>{
+    const title = randomInput.firstElementChild.textContent 
+    if(title.toLowerCase().includes(term)){
+        randomInput.style.display = 'block';
     }else{
-        allRestDiv.style.display = 'none';
+        randomInput.style.display = 'none';
     }
   }) 
   })
 
 //===============searchBar ENDS===========================//
+
