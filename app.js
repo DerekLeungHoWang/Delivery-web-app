@@ -151,13 +151,23 @@ app.get("/contact", (req, res) => {
   res.render("contact");
 });
 
-
 app.get("/cart/checkout", (req, res) => {
   res.render("checkout");
 });
 
-app.get("/userprofile", (req, res) => {
-  res.render("userprofile");
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/login"); // or redirect to '/signup'
+}
+
+app.get("/userprofile", isLoggedIn, (req, res) => {
+  console.log(req.body);
+  
+  res.render("userprofile", {
+    email: req.session.passport.user.email
+  });
 });
 //STRIPE
 

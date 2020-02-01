@@ -49,6 +49,7 @@ module.exports = passport => {
         const newUser = {
           email: email,
           password: hash
+          
         };
         let userId = await knex("users")
           .insert(newUser)
