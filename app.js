@@ -127,16 +127,22 @@ app.get('/japanese', (req, res)=>{
   })
 })
 
-app.get("/japanese/:id", (req, res) => {
+app.get('/japanese/:id', (req, res)=>{
   foodItemService.list(req.params.id).then(data => {
-    res.render("japaneseMenu", {
-      japaneseMenuData: data
-    });
-  });
-});
+    if (res.locals.user = req.user || null) {
+      res.render('japaneseMenu', {layout: 'main2', japaneseMenuData: data});
+    } else {
+      res.render('japaneseMenu', {layout: 'main', japaneseMenuData: data});
+    }
+  })
+})
 
 app.get("/about", (req, res) => {
-  res.render("about");
+  if (res.locals.user = req.user || null) {
+  res.render("about", {layout: 'main2'});  
+  } else {
+    res.render("about", {layout: 'main'});
+  }
 });
 
 app.get('/cart', (req, res)=>{
@@ -148,11 +154,19 @@ app.get('/cart', (req, res)=>{
 })
 
 app.get("/contact", (req, res) => {
-  res.render("contact");
+  if (res.locals.user = req.user || null) {
+  res.render("contact", {layout: 'main2'});  
+  } else {
+    res.render("contact", {layout: 'main'});
+  }
 });
 
 app.get("/cart/checkout", (req, res) => {
-  res.render("checkout");
+  if (res.locals.user = req.user || null) {
+  res.render("checkout", {layout: 'main2'});  
+  } else {
+    res.render("checkout", {layout: 'main'});
+  }
 });
 
 function isLoggedIn(req, res, next) {
@@ -163,11 +177,13 @@ function isLoggedIn(req, res, next) {
 }
 
 app.get("/userprofile", isLoggedIn, (req, res) => {
-  console.log(req.body);
-  
-  res.render("userprofile", {
-    email: req.session.passport.user.email
-  });
+  if (res.locals.user = req.user || null) {
+    res.render("userprofile", {
+      email: req.session.passport.user.email, layout: 'main2'});
+  } else {
+    res.render("userprofile", {
+      email: req.session.passport.user.email, layout: 'main2'});
+  }
 });
 //STRIPE
 
