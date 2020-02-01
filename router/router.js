@@ -38,11 +38,11 @@ module.exports = express => {
 		passport.authenticate("local-signup", {
 			successRedirect: "/",
 			failureRedirect: "/error"
-		})
+    })
 	);
 
 	router.get("/error", (req, res) => {
-		res.send("You are not logged in!");
+		res.send("ERRRRRRRRRRORRRRRR");
 	});
 
   router.get('/logout', (req, res)=>{

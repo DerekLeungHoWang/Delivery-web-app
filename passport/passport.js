@@ -40,6 +40,7 @@ module.exports = passport => {
     "local-signup",
     new LocalStrategy(async (email, password, done) => {
       try {
+        console.log('trying to signup')
         let users = await knex("users").where({ email: email });
         if (users.length > 0) {
           return done(null, false, { message: "Email already taken" });

@@ -26,22 +26,33 @@ class OrderRouter{
     }
 
     get(req,res){
+        // console.log("GET ORDER ROUTER JS");
         
-        return this.orderService.list(req.session.passport.user.id)
-        .then((data)=>res.json(data))
+        return this.orderService.list(req.session.passport.user.email)
+        .then((data)=> {
+            // console.log(data)           
+          res.json(data) })
+
         .catch((err)=>res.status(500).json(err));
     }
     post(req,res){
-        console.log("LINE 26 ORDER ROUTER JS"); 
-        // console.log(req.session);
-        console.log(req.session.passport.user.email);
-        console.log(req.body)
+        // console.log("LINE 26 ORDER ROUTER JS"); 
+        // // console.log(req.session);
+        // console.log(req.session.passport.user.email);
+        // console.log('post?=========');
         
-        return this.orderService.add(req.body.newOrder,req.session.passport.user.email)
-        .then((data)=> {
-            this.orderService.list(req.session.passport.user.email).then((data)=>{
-                res.json(data)
-            })
+        // console.log(req.body.content, "<============== req.body this ")
+        return this.orderService.add(req.session.passport.user.email, req.body.content)
+        .then((data)=> { 
+          
+                   
+            // console.log(req.body.content, "<============== req.body this  47__ ")
+            // console.log(data, 'line48 orderrouter');
+            
+            // console.log(req.session.passport.user.email);
+            // console.log(req.body.content, "<============== req.body line 49 router order");
+            // return this.orderService.addToFoodItem(req.session.passport.user.email, req.body.content)
+            
         }) 
         .catch((err)=>res.status(500).json(err));
     }

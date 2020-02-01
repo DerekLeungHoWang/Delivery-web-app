@@ -14,17 +14,14 @@
 
 <div class="container-fluid dynamic">
     <div class="row no-gutters">
-      {{#each italianMenuData}}
+        {{#each italianMenuData}}
         <div class="col-lg-2">
             <div class="box1">
-                <img src="../img/listPizza2.jpg" alt="">
-                <h3 class="food-name">{{food_name}}</h3>
-                <h3 class="food-price"> ${{food_price}}</h3>
+                <img src="{{food_image}}" alt="">
+
+
                 <ul class="icon">
-                    <li><a><i href=".modal" class="add-to-cart-btn fas fa-shopping-cart" data-toggle='modal'
-                                id="{{food_name}}">
-                            </i></a href="#myModal">
-                    </li>
+
 
                 </ul>
             </div>
@@ -37,23 +34,103 @@
                         <h5 class="card-title">{{food_name}}</h5>
                         <p class="card-text">San Marzano tomatoes, mozzarella cheese, fresh basil, salt and
                             extra-virgin olive oil.</p>
-                        <div class="btn-container">
-                          <a href=".modal" data-toggle='modal'> <button class="btn standard-btn card-link" >Add To Cart</button></a> 
-                        </div>
+                        {{!-- 
+                        <li><button class="add-to-cart-btn fas fa-shopping-cart" data-toggle='modal' 
+                                data-target="#qtySelectModal" id="{{food_name}}" data-food_name={{food_name}}
+                                data-restaurants_id={{restaurants_id}} data-food_item_id={{id}}
+                                data-price={{food_price}} data-current_target_id={{@index}}>
+                            </button>
+                        </li> --}}
+
+
+                    </div>
+                    <div id="qty">
+
+                        <button class="qty-minus"
+                            onclick="var effect = document.getElementById('qty{{food_name}}'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i
+                                class="fa fa-minus" aria-hidden="true"></i></button>
+
+                        <input type="number" class="qty-text" id="qty{{food_name}}" step="1" min="1" max="99"
+                            data-p="{{food_name}}" name="quantity" value=0>
+
+                        <button class="qty-plus"
+                            onclick="var effect = document.getElementById('qty{{food_name}}'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i
+                                class="fa fa-plus" aria-hidden="true"></i></button>
+
+
+                        <button type="submit" class="add-to-cart-btn btn btn-primary" id="{{food_name}}"
+                            data-food_name={{food_name}} data-restaurants_id={{restaurants_id}} data-food_item_id={{id}}
+                            data-price={{food_price}} data-current_target_id={{@index}} data-food_item_image={{food_image}}
+                            data-toggle="modal" data-target="#add-to-cart-confirm{{@key}}">Add to Cart</button>
                     </div>
                 </div>
             </div>
-          </div>
+        </div>
+
+
+
+        <!-- Button trigger modal -->
+        {{!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button> --}}
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!------------confirmation box-------------------->
+        <div id="add-to-cart-confirm{{@key}}" class="modal fade">
+            <div class="modal-dialog modal-confirm">
+                <div class="modal-content">
+                    <div class="modal-header  ">
+                        <div class="icon-box">
+                            <i class="material-icons">&#xE876;</i>
+                        </div>
+
+                    </div>
+                    <div class="modal-body ">
+                        <div class="text-center">
+                            <img src="{{food_image}}" width="90px" height="90px" class="rounded ">
+                        </div>
+                        <p class="text-center">{{food_name}} has been added to the Cart</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-confirmation btn-success btn-block" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         {{/each}}
-    
-    </div> 
+
+        {{!-- <button id="click">Click</button> --}}
+    </div>
 </div>
 
 
 
 
 <!------------numbercounter starts-------------------->
-<div class="container-fluid statNum">
+{{!-- <div class="container-fluid statNum">
     <div  class="row stat">
         <div class="statIcon col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="milestone-counter">
@@ -84,24 +161,12 @@
             </div>
         </div>
     </div><!-- stat -->
-</div>
+</div> --}}
 
-<!------------confirmation box-------------------->
-<div id="myModal" class="modal fade">
-    <div class="modal-dialog modal-confirm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="icon-box">
-                    <i class="material-icons">&#xE876;</i>
-                </div>
-                <h4 class="modal-title">Awesome!</h4>
-            </div>
-            <div class="modal-body">
-                <p class="text-center">Your order has been successfully added!</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-confirmation btn-success btn-block" data-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
+
+
+
+
+
+
+{{!-- data-dismiss="modal" data-toggle="modal" data-target="#add-to-cart-confirm" --}}

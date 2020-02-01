@@ -25,6 +25,7 @@ const knex = require("knex")(knexConfig);
 const setupPassport = require("./passport/initpassport");
 const session = require("express-session");
 //app.use(sesssion)
+
 app.use(
   session({
     secret: "supersecret",
@@ -32,10 +33,9 @@ app.use(
     saveUninitialized: true
   })
   );
-  //has to be above setuppassport
+  
   setupPassport(app);
   //======================================AUTH=================//
-  app.use("/", router);
   //template engine
   app.engine("handlebars", hbs({ 
     defaultLayout: "main",
@@ -43,14 +43,15 @@ app.use(
     partialsDir: PATH.resolve(__dirname, 'views/partials')
   }));
   app.set("view engine", "handlebars");
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-app.use(express.static("public"));
-app.use(express.static("router"));
-
-//======================================ROUTERS================//
+  
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
+  
+  app.use(express.static("public"));
+  app.use(express.static("router"));
+  
+  //======================================ROUTERS================//
+  app.use("/", router);
 //===============Restaurant Service and Router//
 const RestService = require("./service/RestService");
 const RestRouter = require("./router/RestRouter");
@@ -70,12 +71,11 @@ const FoodItemRouter = require("./router/FoodItemRouter");
 const foodItemService = new FoodItemService(knex);
 app.use("/api/food_item", new FoodItemRouter(foodItemService).router());
 
-//reviewService and Router//
-// const ReviewService = require("./service/ReviewService");
-// const ReviewRouter = require("./router/ReviewRouter");
-// const reviewService = new ReviewService(knex);
-// app.use("/api/review", new ReviewRouter(reviewService).router());
-
+//OrderItemService and Router//
+const OrderItemService = require("./service/OrderItemService");
+const OrderItemRouter = require("./router/OrderItemRouter");
+const orderItemService = new OrderItemService(knex);
+app.use("/api/order_item", new OrderItemRouter(orderItemService).router());
 
 // VIEWS -------------------------------------------------------//
 //app.get
@@ -105,13 +105,15 @@ app.get('/italian', (req, res)=>{
 })
 
 //Italian restaurants dynamic render
-app.get("/italian/:id", (req, res) => {
+app.get('/italian/:id', (req, res)=>{
   foodItemService.list(req.params.id).then(data => {
-    res.render("italianMenu", {
-      italianMenuData: data
-    });
-  });
-});
+    if (res.locals.user = req.user || null) {
+      res.render('italianMenu', {layout: 'main2', italianMenuData: data});
+    } else {
+      res.render('italianMenu', {layout: 'main', italianMenuData: data});
+    }
+  })
+})
 
 //Japanese Restaurants render
 
@@ -137,9 +139,13 @@ app.get("/about", (req, res) => {
   res.render("about");
 });
 
-app.get("/cart", (req, res) => {
-  res.render("cart");
-});
+app.get('/cart', (req, res)=>{
+    if (res.locals.user = req.user || null) {
+      res.render('cart', {layout: 'main2'});
+    } else {
+      res.render('cart', {layout: 'main'});
+    }
+})
 
 app.get("/contact", (req, res) => {
   res.render("contact");

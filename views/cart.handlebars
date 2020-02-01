@@ -1,4 +1,4 @@
-<H1>Cart</H1>
+
 
 <div class="cart-area">
     <div class="container">
@@ -12,19 +12,30 @@
                             <th scope="col">Quantity</th>
                             <th scope="col">Total</th>
                         </tr>
-                    </thead>
+                    </thead>  
                     <tbody id="orders">
 
                     </tbody>
 
                 </table>
+                
                 <div class="total">
-                    <button class="round-button">Continue Shopping</button>
+                   
+                  <a href="/cart/checkout">
+
+                 <form class="checkout-form" action="/api/orders" method="post">
+                  <button type="submit"  class="checkout-btn" >Checkout</button>
+                  </form>
+
+                  </a>  
+                    
                 </div>
-                <div class="total">
-                  <a href="/cart/checkout"><button  class="checkout-btn" >Checkout</button></a>  
+                <div class="grand-total">
+                    <div>Grand Total:</div>
+                    <div class="grand-total-value"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+

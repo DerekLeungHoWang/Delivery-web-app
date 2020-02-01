@@ -21,7 +21,7 @@ class FoodItemService {
       let data;
       if (restParams !== undefined) {
         data = this.knex
-          .select("food_name", "food_price", "food_image", "restaurants_id")
+          .select("food_name", "food_price", "food_image", "restaurants_id", "food_item.id")
           .from("food_item")
           .innerJoin(
             "restaurants",
