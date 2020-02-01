@@ -68,25 +68,20 @@ const OrderItemRouter = require("./router/OrderItemRouter");
 const orderItemService = new OrderItemService(knex);
 app.use("/api/order_item", new OrderItemRouter(orderItemService).router());
 
-
-
 // //app.get
 app.get("/", (req, res) => {
- 
-  if(req.session.user){
-
+  if (req.session.user) {
   } else {
-    restService.cuisineType().then(data =>{
-    res.render("index", {
-      cuisineData: data,
+    restService.cuisineType().then(data => {
+      res.render("index", {
+        cuisineData: data
+      });
     });
-     })
   }
 });
 
 // //===================================ITALIAN ROUTE============================
 app.get("/italian", (req, res) => {
-
   restService.list().then(data => {
     res.render("italian", {
       italianData: data
@@ -98,7 +93,6 @@ app.get("/italian/:id", (req, res) => {
   foodItemService.list(req.params.id).then(data => {
     // console.log(data,"LINE 93 ======<><><>< app js");
 
-    
     res.render("italianMenu", {
       italianMenuData: data
     });
@@ -107,7 +101,6 @@ app.get("/italian/:id", (req, res) => {
 
 //Japanese Restaurants render
 app.get("/japanese", (req, res) => {
-
   restService.listJp().then(data => {
     res.render("japanese", {
       japaneseData: data
@@ -135,13 +128,23 @@ app.get("/contact", (req, res) => {
   res.render("contact");
 });
 
-
 app.get("/cart/checkout", (req, res) => {
   res.render("checkout");
 });
 
-app.get("/userprofile", (req, res) => {
-  res.render("userprofile");
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/login"); // or redirect to '/signup'
+}
+
+app.get("/userprofile", isLoggedIn, (req, res) => {
+  console.log(req.body);
+  
+  res.render("userprofile", {
+    email: req.session.passport.user.email
+  });
 });
 
 // app.post("/");
