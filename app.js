@@ -9,14 +9,22 @@ const PATH = require("path");
 //handlebars views 
 const Vision = require('vision')
 //dotenv
-require('dotenv').config();
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const dotenv = require('dotenv');
+const envfile = process.env.NODE_ENV === 'production' ? '.env' : '.dev.env';
+dotenv.config({
+  silent: true,
+  path: `${__dirname}/${envfile}`,
+});
+
+// Stripe
+const charge = require('./service/charge');
 
 //================================//
 
 const bodyParser = require("body-parser");
 const router = require("./router/router")(express);
+
 //require KNEX
 const knexConfig = require("./knexfile").development;
 const knex = require("knex")(knexConfig);
@@ -178,15 +186,27 @@ function isLoggedIn(req, res, next) {
 
 app.get("/userprofile", isLoggedIn, (req, res) => {
   if (res.locals.user = req.user || null) {
-    res.render("userprofile", {
+    res.render("userProfile", {
       email: req.session.passport.user.email, layout: 'main2'});
   } else {
-    res.render("userprofile", {
-      email: req.session.passport.user.email, layout: 'main2'});
+    res.render("userProfile", {
+      email: req.session.passport.user.email, layout: 'main'});
   }
 });
-//STRIPE
 
+app.get('/success', (req, res)=>{
+  res.render('success', {layout: 'main3'});
+})
+
+
+app.post('/charge', (req, res, next) => {
+  charge(req).then(data => {
+    res.render('success', {layout: 'main3'});
+  }).catch(error => {
+    res.render('cart', error);
+    console.log('payment was not successful');
+  });
+});
 
 const options = {
   cert: fs.readFileSync("./localhost.crt"),

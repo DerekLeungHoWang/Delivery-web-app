@@ -14,8 +14,13 @@
         {{!-- DIV --}}
         <div class='intro'>
             <div id='enterSite'>
-                <h1 id='slogan'>Let's have a Gander</h1>
-                <button type="button" class="btn btn-light" id='exploreButton'>Hungry?</button>
+                <h1 id='slogan'>Let's<br /><div class='rotateVertical'>
+                    <span>never cook.</span>
+                    <span>waste money.</span>
+                    <span>have a Gander.</span>
+                </div>
+                </h1>
+                <button type="button" class="btn btn-dark" id='exploreButton'>EXPLORE</button>
             </div>
         </div>
 
@@ -48,6 +53,7 @@
                 <form class="form-inline my-2 my-lg-0" id="search-cuisine">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     </form>
+                    <h2 id='all_restTitle'>Restaurants around me</h2>
                 <ul id='allRestList' style="list-style-type:none">
                     {{#each allRestData}}
                     <li id='allRestDiv'>
@@ -121,7 +127,7 @@
             <div id='readyNowInfo'>
                 <h2>Ready to order?</h2>
                 <p>Browse local restaurants and businesses available for delivery and order now!</p>
-                <button type="button" class="btn btn-dark">Sign Up Now!</button>
+                <button type="button" class="btn btn-dark"><a href='/login'>Sign Up Now!</a></button>
             </div>
 
         </div>

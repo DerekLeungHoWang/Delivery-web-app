@@ -1,5 +1,6 @@
+ <div id='cartBanner'></div>
 
-
+<div class='shoppingCart'>
 <div class="cart-area">
     <div class="container">
         <div class="row">
@@ -39,3 +40,16 @@
     </div>
 </div>
 
+ 
+  <form id='chargeButton' action="/charge" method="POST">
+    <script
+      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="pk_test_6qEf5kpQz6SeggIgjRaqFwvN00ZSYazPqz"
+      data-name="DDD"
+      data-description="Your Order"
+      data-image="https://images.unsplash.com/photo-1554630981-a73ffb5ed6f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80"
+      data-locale="auto">
+    </script>
+  </form>
+
+</div>
