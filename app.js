@@ -172,42 +172,52 @@ app.get("/userprofile", (req, res) => {
     .innerJoin("food_item", "order_items.food_item_id", "food_item.id")
     .where("users.id", req.session.passport.user.id);
 
-    
   query.then(rows => {
     console.log(rows);
-    
+
     console.log(rows.length);
-    
-    if(rows.length > 0){
 
- 
-    console.log(rows, "line146");
-    const ordersToInsert = rows.map(row => ({
+    if (rows.length > 0) {
+      console.log(rows, "line146");
+      console.log(rows.slice(-1)[0].order_id);
+
+      const ordersToInsert = rows.map(row => ({
+        quantity: row.quantity,
+        food_name: row.food_name,
+        food_price: row.food_price,
+        amount: row.amount,
+        order_id: row.order_id
+      }));
+
+      let ordersToInsert_final = []
+      for (let i = 0; i < ordersToInsert.length; i++) {
+        if (ordersToInsert[i].order_id == rows.slice(-1)[0].order_id) {
+
+          ordersToInsert_final.push(ordersToInsert[i])
+          console.log(
+            ordersToInsert[i],
+            "***************************************************************"
+          );
+        }
+      }
+      console.log(ordersToInsert_final);
       
-      quantity: row.quantity,
-      food_name: row.food_name,
-      food_price: row.food_price,
-      amount: row.amount,
-      order_id: row.order_id
-    }));
-    console.log(ordersToInsert,"***************************************************************");
-
-    res.render("userprofile", {
-      layout: 'main2',
-      email: req.session.passport.user.email,
-      full_name: req.session.passport.user.full_name,
-      address: req.session.passport.user.address,
-      ordersToInsert,
-      grand_total: rows.slice(-1)[0].amount
-    });
-  }else{
-    res.render("userprofile",{
-      layout:"main2",
-      email: req.session.passport.user.email,
-      full_name: req.session.passport.user.full_name,
-      address: req.session.passport.user.address,
-    })
-  }
+      res.render("userprofile", {
+        layout: "main2",
+        email: req.session.passport.user.email,
+        full_name: req.session.passport.user.full_name,
+        address: req.session.passport.user.address,
+        ordersToInsert_final,
+        grand_total: rows.slice(-1)[0].amount
+      });
+    } else {
+      res.render("userprofile", {
+        layout: "main2",
+        email: req.session.passport.user.email,
+        full_name: req.session.passport.user.full_name,
+        address: req.session.passport.user.address
+      });
+    }
   });
 });
 
@@ -230,5 +240,3 @@ const options = {
 https.createServer(options, app).listen(2000);
 
 module.exports = app;
-
-
