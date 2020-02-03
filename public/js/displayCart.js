@@ -127,7 +127,7 @@ class displayCart {
     let foodArr = this.getOrder();
     console.log(foodArr);
     console.log(localStorage);
-    if (localStorage.length === 0) {
+    if (localStorage.length === 0 || localStorage.foodArr == null || localStorage.foodArr == undefined) {
       
     console.log('something');
       localStorage.setItem("foodArr", JSON.stringify(foodArr));
