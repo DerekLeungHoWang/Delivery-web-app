@@ -183,13 +183,14 @@ app.get("/userprofile", (req, res) => {
  
     console.log(rows, "line146");
     const ordersToInsert = rows.map(row => ({
+      
       quantity: row.quantity,
       food_name: row.food_name,
       food_price: row.food_price,
       amount: row.amount,
       order_id: row.order_id
     }));
-    console.log(ordersToInsert);
+    console.log(ordersToInsert,"***************************************************************");
 
     res.render("userprofile", {
       layout: 'main2',
