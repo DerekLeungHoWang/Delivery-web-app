@@ -43,7 +43,8 @@ class OrderItemRouter {
       .add(req.session.passport.user,req.body.content)
       .then(data => {
         console.log("getting here 47");
-
+        console.log(data,'line==--=-=-=-=-=-=--=-=-=-=-=-=');
+        
         res.json(data);
       })
 

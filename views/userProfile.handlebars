@@ -4,8 +4,7 @@
 
             <div class="col-md-4">
                 <div class="profile-img">
-                    <img src="http://www.psnleaderboard.com/images/avatars/J0010.png"
-                        alt="">
+                    <img src="http://www.psnleaderboard.com/images/avatars/J0010.png" alt="">
                     <div class="file btn btn-lg btn-primary">
                         Change Photo
                         <input type="file" name="file" />
@@ -15,7 +14,7 @@
 
             <div class="col-md-6">
                 <div class="profile-head">
-                    <h5>Dererk Leung </h5>
+                    <h5>{{full_name}} </h5>
 
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
@@ -49,33 +48,47 @@
                 <div class="tab-content profile-tab" id="myTabContent">
 
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        {{#each ordersToInsert }}
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Order ID</label>
+                                <label>Order ID </label>
                             </div>
                             <div class="col-md-6">
-                                <label>1</label>
+                                <label>{{order_id}}</label>
                             </div>
                         </div>
+
+
 
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Items</label>
                             </div>
                             <div class="col-md-6">
-                                <label>Spaghetti with meatballs</label>
+                                <label>{{food_name}}</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Delivery status</label>
+                                <label>Quantity</label>
                             </div>
                             <div class="col-md-6">
-                                <label class="alert-danger">Delivering</label>
+                                <label>{{quantity}}</label>
                             </div>
                         </div>
-
+                        <hr>
+                        {{/each}}
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Grand_Total </label>
+                        </div>
+                        <div class="col-md-6">
+                            <label>${{grand_total}}</label>
+                        </div>
+                    </div>
+
+
 
                     <div class="tab-pane fade" id="profile" role="tabpanel1" aria-labelledby="profile-tab">
 
@@ -84,7 +97,7 @@
                                 <label>Name</label>
                             </div>
                             <div class="col-md-6">
-                                <label>Derek Leung</label>
+                                <label>{{full_name}}</label>
                             </div>
                         </div>
                         <div class="row">
@@ -116,7 +129,7 @@
                                 <label>Address</label>
                             </div>
                             <div class="col-md-6">
-                                <label>26/F, Sino Plaza, 255-257 Gloucester Rd, Causeway Bay</label>
+                                <label>{{address}}</label>
                             </div>
                         </div>
 
