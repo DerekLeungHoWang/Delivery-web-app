@@ -171,7 +171,16 @@ app.get("/userprofile", (req, res) => {
     .innerJoin("users", "orders.user_id", "users.id")
     .innerJoin("food_item", "order_items.food_item_id", "food_item.id")
     .where("users.id", req.session.passport.user.id);
+
+    
   query.then(rows => {
+    console.log(rows);
+    
+    console.log(rows.length);
+    
+    if(rows.length > 0){
+
+ 
     console.log(rows, "line146");
     const ordersToInsert = rows.map(row => ({
       quantity: row.quantity,
@@ -190,6 +199,14 @@ app.get("/userprofile", (req, res) => {
       ordersToInsert,
       grand_total: rows.slice(-1)[0].amount
     });
+  }else{
+    res.render("userprofile",{
+      layout:"main2",
+      email: req.session.passport.user.email,
+      full_name: req.session.passport.user.full_name,
+      address: req.session.passport.user.address,
+    })
+  }
   });
 });
 
