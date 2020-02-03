@@ -44,6 +44,7 @@ class OrderRouter{
         // console.log(req.body.content, "<============== req.body this ")
         return this.orderService.add(req.session.passport.user.email, req.body.content)
         .then((data)=> { 
+            res.send('ok ')
             
                    
             // console.log(req.body.content, "<============== req.body this  47__ ")

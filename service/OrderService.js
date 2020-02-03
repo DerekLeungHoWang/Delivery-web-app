@@ -15,7 +15,7 @@ class OrderService {
 
     return query.then(rows => {
       if (rows.length === 1) {
-        console.log(rows);
+        // console.log(rows);
         console.log('order======<><><><>><>>>>>>>>>>><><<><<<<><>');
         let data;
         let sum = 0;
@@ -24,7 +24,7 @@ class OrderService {
           sum+=data;
             
         }
-        console.log(sum, 'line 27 orderservicejs');
+        // console.log(sum, 'line 27 orderservicejs');
      
         return this.knex
           .insert({

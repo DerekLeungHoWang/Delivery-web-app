@@ -595,3 +595,12 @@ var scroll = new SmoothScroll('a[href*="#"]', {
 // //     let sum = 0;
 
 // // }
+
+//===============cart animation ENDS===========================//
+$(document).on("click", "#remove", e => {
+  console.log('clicked');
+  
+})
+
+
+//===============cart animation ENDS===========================//

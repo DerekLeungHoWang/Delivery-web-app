@@ -202,6 +202,36 @@ app.get("/userprofile", (req, res) => {
   });
 });
 
+app.get("/userprofile", (req, res) => {
+  console.log(req.session.passport.user);
+
+  let query = knex
+    .from("order_items")
+    .innerJoin("orders", "order_items.order_id", "orders.id")
+    .innerJoin("users", "orders.user_id", "users.id")
+    .innerJoin("food_item", "order_items.food_item_id", "food_item.id")
+    .where("users.id", req.session.passport.user.id);
+  query.then(rows => {
+    console.log(rows, "line146");
+    const ordersToInsert = rows.map(row => ({
+      quantity: row.quantity,
+      food_name: row.food_name,
+      food_price: row.food_price,
+      amount: row.amount,
+      order_id: row.order_id
+    }));
+    console.log(ordersToInsert);
+
+    res.render("userprofile", {
+      email: req.session.passport.user.email,
+      full_name: req.session.passport.user.full_name,
+      address: req.session.passport.user.address,
+      ordersToInsert,
+      grand_total: rows.slice(-1)[0].amount
+    });
+  });
+});
+
 app.post("/charge", (req, res, next) => {
   charge(req)
     .then(data => {
@@ -221,3 +251,5 @@ const options = {
 https.createServer(options, app).listen(2000);
 
 module.exports = app;
+
+

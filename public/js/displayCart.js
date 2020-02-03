@@ -299,6 +299,13 @@ $(".checkout-form").submit(e => {
     })
     .then(res => {
     console.log('checkingout');
+  
+
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
     axios
     .post("/api/order_item", {
       content: data_final
@@ -309,5 +316,4 @@ $(".checkout-form").submit(e => {
     .catch(err => {
       console.log(err);
     });
-  });    
 console.log(newOrder.getFoodItemImage());

@@ -38,7 +38,9 @@ module.exports = passport => {
     "local-signup",
     new LocalStrategy({passReqToCallback: true}, async (req,email, password, done) => {  //passReqToCallback: true enable req to be passed as argument
      console.log('lineeee42');
-     console.log(req.body); 
+     console.log(req.body);
+     
+      
       try {
         let users = await knex("users").where({ email: email });
         if (users.length > 0) {
@@ -50,6 +52,7 @@ module.exports = passport => {
           password: hash,
           full_name:req.body.name,
           address:req.body.address
+          
         };
         let userId = await knex("users")
           .insert(newUser)

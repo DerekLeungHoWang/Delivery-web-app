@@ -16,7 +16,7 @@ module.exports = (app)=>{
     app.use(passport.session());
 
     passport.serializeUser((user,done)=>{
-        // console.log(user, "<==== serialise")
+        console.log(user, "<==== serialise")
         done(null,user);
     });
 
