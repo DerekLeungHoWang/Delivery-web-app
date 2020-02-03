@@ -114,8 +114,7 @@ h4 {
 #cuisine-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 2%;
+  padding: 1%; 
 }
 
 #cuisine-list h2 {
@@ -126,6 +125,11 @@ h4 {
 
 #cuisine-list a:hover {
   text-decoration: none;
+}
+
+#cuisine {
+  margin-left: 1%; 
+  margin-right: 0.5%; 
 }
 
 #cuisineName {
@@ -156,11 +160,10 @@ h4 {
   flex-wrap: wrap;
   padding-left: 1%;
   padding-right: 1%;
-  justify-content: space-between;
 }
 
 #allRestDiv {
-  padding: 1%;
+  padding: 1.1%;
 }
 
 .allRestImage {

@@ -125,7 +125,11 @@ class displayCart {
     console.log(e.currentTarget.parentNode.children[1].value);
 
     let foodArr = this.getOrder();
-    if (localStorage.foodArr === undefined) {
+    console.log(foodArr);
+    console.log(localStorage);
+    if (localStorage.length === 0) {
+      
+    console.log('something');
       localStorage.setItem("foodArr", JSON.stringify(foodArr));
     }
     console.log(localStorage);
@@ -288,6 +292,16 @@ $(document).on("click", ".remove-item-btn", e => {
   newOrder.reloadOrders();
   newOrder.calculateTotal();
 });
+
+$(document).on("click", "#log-out", e => {
+  console.log('sfsfsff');
+  localStorage.clear()
+});
+
+$(document).on('click', '#loginButton', e=>{
+  localStorage.clear()
+})
+
 
 $(".checkout-form").submit(e => {
   e.preventDefault();
