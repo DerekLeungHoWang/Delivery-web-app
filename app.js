@@ -180,8 +180,8 @@ app.get("/userprofile", (req, res) => {
       amount: row.amount,
       order_id: row.order_id
     }));
-
     console.log(ordersToInsert);
+
     res.render("userprofile", {
       layout: 'main2',
       email: req.session.passport.user.email,

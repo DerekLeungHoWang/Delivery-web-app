@@ -5,44 +5,54 @@ class OrderItemService {
     this.knex = knex;
   }
 
-  add(user, order) {
+  async add(order) {
     //order =======================================================
-    // console.log(
-    //   "order ======================================================="
-    // );
-
-    // console.log(order);
-
-    let foodIdArray = [];
-    let foodQuantityArray = [];
-    for (let i = 0; i < order.length; i++) {
-      //   console.log(order[i]);
-
-      foodIdArray.push(parseInt(order[i].food_item_id_arr));
-      foodQuantityArray.push(parseInt(order[i].quantity));
-    }
-
-    // console.log(foodIdArray, "line=========================18");
+    console.log(
+      "order ======================================================="
+    );
 
     let query = this.knex("orders");
 
-    return query.then(rows => {
+    return query.then( async rows => {
+   
+      console.log(rows);
+      console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
       //   console.log("line 28");
-      //   console.log(rows);
+      console.log(order);
+      console.log("line 31 loging order ------------->");
 
-      //   console.log(rows.slice(-1)[0].id);
+        console.log(typeof rows.slice(-1)[0].id);
 
-      let latest_order_id = rows.slice(-1)[0].id + 1;
+      let latest_order_id = rows.slice(-1)[0].id;
+      console.log(latest_order_id);
 
       const ordersToInsert = order.map(order => ({
-        food_item_id: order.food_item_id_arr,
-        order_id: latest_order_id,
-        quantity: order.quantity
+        food_item_id: parseInt(order.food_item_id_arr),
+        order_id: parseInt(latest_order_id),
+        quantity: parseInt(order.quantity)
       }));
+      
 
-      //   console.log(ordersToInsert);
+      console.log(ordersToInsert, "line 47 OrderItemService <<<<<===========>>>>");
+      // console.log(ordersToInsert[1].food_item_id, typeof ordersToInsert[1].food_item_id);
+      console.log(ordersToInsert[0].order_id, typeof ordersToInsert[0].order_id);
+      console.log(ordersToInsert[1].order_id, typeof ordersToInsert[1].order_id);
 
-      return this.knex.insert(ordersToInsert).into("order_items");
+      // console.log(ordersToInsert[1].quantity, typeof ordersToInsert[1].quantity);
+
+      console.log("=======SEPERATION LINE ============================================");
+      
+      let x = [{food_item_id: 3, order_id: 1, quantity: 4},{food_item_id: 5, order_id: 1, quantity: 2}]
+      console.log(x[0].food_item_id, typeof x[0].food_item_id);
+      console.log(x[0].order_id, typeof x[0].order_id);
+      console.log(x[0].quantity, typeof x[0].quantity);
+      
+    
+
+    // let data = await this.knex.insert([{food_item_id: 3, order_id: 1, quantity: 4},{food_item_id: 5, order_id: 1, quantity: 2}]).into("order_items");
+    let data = await this.knex.insert(ordersToInsert).into("order_items");
+      console.log(data)
+      return data
     });
   }
 
@@ -107,3 +117,6 @@ module.exports = OrderItemService;
 //       quantity:2
 //   }).into("order_items");
 //===================================================================================
+
+
+// let data = await this.knex.insert([{food_item_id: 3, order_id: 1, quantity: 4},{food_item_id: 5, order_id: 1, quantity: 2}]).into("order_items").returning('id');

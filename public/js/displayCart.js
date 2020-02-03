@@ -116,7 +116,9 @@ class displayCart {
     let food_item_name =
       e.currentTarget.parentNode.parentNode.children[0].children[0].innerText;
 
-    console.log(e.currentTarget.parentNode.parentNode.children[0].children[0].innerText);
+    console.log(
+      e.currentTarget.parentNode.parentNode.children[0].children[0].innerText
+    );
 
     // this.previous = food_item_name;
     let food_item_quantity = parseInt(
@@ -127,9 +129,12 @@ class displayCart {
     let foodArr = this.getOrder();
     console.log(foodArr);
     console.log(localStorage);
-    if (localStorage.length === 0 || localStorage.foodArr == null ||localStorage.foodArr == undefined) {
-      console.log('something');
-      
+    if (
+      localStorage.length === 0 ||
+      localStorage.foodArr == null ||
+      localStorage.foodArr == undefined
+    ) {
+      console.log("something");
       localStorage.setItem("foodArr", JSON.stringify(foodArr));
     }
     console.log(localStorage);
@@ -272,8 +277,8 @@ newOrder.getOrder();
 
 //reloader order when page refresh
 $(document).ready(() => {
-  console.log(localStorage,"line 275 displaycart");
-  
+  console.log(localStorage, "line 275 displaycart");
+
   newOrder.reloadOrders();
   newOrder.calculateTotal();
 });
@@ -296,44 +301,128 @@ $(document).on("click", ".remove-item-btn", e => {
 });
 
 $(document).on("click", "#log-out", e => {
-  console.log('sfsfsff');
-  
-  localStorage.clear()
+  console.log("sfsfsff");
+  localStorage.clear();
 });
-
 
 $(document).on("click", "#loginButton", e => {
-  
-  
-  localStorage.clear()
+  localStorage.clear();
 });
 
+
+///========================================================Promise all
 
 $(".checkout-form").submit(e => {
   e.preventDefault();
-  let data_final = newOrder.reloadOrders()
+  let data_final = newOrder.reloadOrders();
   console.log("clicked this");
-  axios
-    .post("/api/orders", {
-      content: data_final
-    })
-    .then(res => {
-    console.log('checkingout');
+
+  let promiseA = axios
+  .post("/api/orders", {
+    content: data_final
+  })
+
+  let promiseB = promiseA.then((responseA) => {
+    console.log("done");
+    
     axios
     .post("/api/order_item", {
       content: data_final
-    }).catch(err => {
-      console.log(err);
-    });
     })
-    .catch(err => {
-      console.log(err);
-    });
+ })
 
-    })
-    .catch(err => {
-      console.log(err);
-    });
+ return Promise.all([promiseA, promiseB]).then(function([responseA, responseB]) {
+  console.log('all done');
+  
+});
 
- 
-console.log(newOrder.getFoodItemImage());
+    
+});
+
+
+///========================================================Promise all
+
+// $(".checkout-form").submit(e => {
+//   e.preventDefault();
+//   let data_final = newOrder.reloadOrders();
+//   console.log("clicked this");
+//   axios
+//     .post("/api/orders", {
+//       content: data_final
+//     })
+//     .then(res => {
+//       console.log("checkingout");
+  
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+
+
+//     axios
+//     .post("/api/order_item", {
+//       content: data_final
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+    
+// });
+
+///========================================================Promise all
+// $(".checkout-form").submit(e => {
+//   e.preventDefault();
+//   let data_final = newOrder.reloadOrders();
+//   console.log("clicked this");
+
+//   let promiseA = axios
+//   .post("/api/orders", {
+//     content: data_final
+//   })
+
+//   let promiseB = promiseA.then((responseA) => {
+//     axios
+//     .post("/api/order_item", {
+//       content: data_final
+//     })
+//  })
+
+//  return Promise.all([promiseA, promiseB]).then(function([responseA, responseB]) {
+//   console.log('all done');
+  
+// });
+
+    
+// });
+
+
+
+///========================================================Promise all
+
+// $(".checkout-form").submit(e => {
+//   e.preventDefault();
+
+// function post1() {
+//   let data_final = newOrder.reloadOrders();
+//   return axios
+//     .post("/api/orders", {
+//       content: data_final
+//     })
+// }
+
+// function post2() {
+//   let data_final = newOrder.reloadOrders();
+//   return axios
+//       .post("/api/order_item", {
+//         content: data_final
+//       })
+// }
+
+// axios.all([post1(), post2()])
+//   .then(axios.spread(function (acct, perms) {
+//     // Both requests are now complete
+//     console.log('completed');
+    
+//   }));
+
+// });
