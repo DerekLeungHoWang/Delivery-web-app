@@ -309,5 +309,5 @@ $(".checkout-form").submit(e => {
     .catch(err => {
       console.log(err);
     });
-});
+  });    
 console.log(newOrder.getFoodItemImage());

@@ -202,10 +202,6 @@ app.get("/userprofile", (req, res) => {
   });
 });
 
-app.get("/success", (req, res) => {
-  res.render("success", { layout: "main3" });
-});
-
 app.post("/charge", (req, res, next) => {
   charge(req)
     .then(data => {
