@@ -310,7 +310,7 @@ $(".checkout-form").submit(e => {
     })
     .then(res => {
     console.log('checkingout');
-    
+  
 
     })
     .catch(err => {
