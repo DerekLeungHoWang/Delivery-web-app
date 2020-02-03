@@ -272,6 +272,8 @@ newOrder.getOrder();
 
 //reloader order when page refresh
 $(document).ready(() => {
+  console.log(localStorage,"line 275 displaycart");
+  
   newOrder.reloadOrders();
   newOrder.calculateTotal();
 });
@@ -300,6 +302,12 @@ $(document).on("click", "#log-out", e => {
 });
 
 
+$(document).on("click", "#loginButton", e => {
+  
+  
+  localStorage.clear()
+});
+
 
 $(".checkout-form").submit(e => {
   e.preventDefault();
@@ -311,13 +319,6 @@ $(".checkout-form").submit(e => {
     })
     .then(res => {
     console.log('checkingout');
-  
-
-    })
-    .catch(err => {
-      console.log(err);
-    });
-
     axios
     .post("/api/order_item", {
       content: data_final
@@ -328,4 +329,11 @@ $(".checkout-form").submit(e => {
     .catch(err => {
       console.log(err);
     });
+
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+ 
 console.log(newOrder.getFoodItemImage());
