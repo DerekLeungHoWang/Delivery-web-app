@@ -114,6 +114,8 @@ h4 {
 #cuisine-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center; 
   padding: 1%; 
 }
 
@@ -158,8 +160,8 @@ h4 {
 #allRestList {
   display: flex;
   flex-wrap: wrap;
-  padding-left: 1%;
-  padding-right: 1%;
+  justify-content: center;
+  align-items: center; 
 }
 
 #allRestDiv {
