@@ -8,38 +8,29 @@ var ordersTemplate = Handlebars.compile(
                   <table class="table table-responsive">
                       <tbody >
                           <tr>
-                          
                               <td class="cart_product_img d-flex align-items-center">
                               <img src="{{food_item_image_arr}}" width="90px" height="90px" class="rounded ">
                               <span> &nbsp; &nbsp;</span>
-                            
                               <h6>{{food_item_name_arr}} </h6>
-                                  
                               </td>
                               <td class="price"><span> $ {{all_food_price_arr}}   </span></td>
                               <td class="qty">
                                   <div class="product-quantity">
-              
                                       <input type="number" class="qty-text" id="{{@key}}" step="1" min="1" max="99"
-                                          name="quantity" value={{quantity}} data-foodItemPrice={{all_food_price_arr}}>
-                                          
+                                          name="quantity" value={{quantity}} data-foodItemPrice={{all_food_price_arr}}>    
                                   </div>
-                              </td>
-                              
+                              </td> 
                               <td class="row_total_price"><span> $ {{row_total}} </span></td>
                               <td class="item-removal">
                               <i class="remove-item-btn fas fa-trash-alt"></i>
                               </td>
                           </tr>
                       </tbody>
-  
-  
                   </table>
               </div>
           </div>
       </div>
   </div> 
-  
   {{/each}}
     `
 );
@@ -125,9 +116,7 @@ class displayCart {
     let food_item_name =
       e.currentTarget.parentNode.parentNode.children[0].children[0].innerText;
 
-    console.log(
-      e.currentTarget.parentNode.parentNode.children[0].children[0].innerText
-    );
+    console.log(e.currentTarget.parentNode.parentNode.children[0].children[0].innerText);
 
     // this.previous = food_item_name;
     let food_item_quantity = parseInt(
@@ -323,9 +312,8 @@ $(".checkout-form").submit(e => {
     }).catch(err => {
       console.log(err);
     });
-
-
-
-});
-
+    })
+    .catch(err => {
+      console.log(err);
+    });
 console.log(newOrder.getFoodItemImage());

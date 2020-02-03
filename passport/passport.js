@@ -1,9 +1,7 @@
-// const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("./bcrypt.js");
 
 require("dotenv").config();
-
 const knex = require("knex")({
   client: "postgresql",
   connection: {

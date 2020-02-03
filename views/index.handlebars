@@ -5,46 +5,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HOME</title>
+    <title>DDD</title>
 </head>
 
 <body>
+    <div class='welcome'>
 
-    <h1>HOME</h1>
+        {{!-- DIV --}}
+        <div class='intro'>
+            <div id='enterSite'>
+                <h1 id='slogan'>Let's<br /><div class='rotateVertical'>
+                    <span>never cook.</span>
+                    <span>waste money.</span>
+                    <span>have a Gander.</span>
+                </div>
+                </h1>
+                <button type="button" class="btn btn-dark" id='exploreButton'>EXPLORE</button>
+            </div>
+        </div>
 
-    <form class="form-inline my-2 my-lg-0" id="search-cuisine">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-    <h1 class="black-h1">Category</h1>
-    <div id="cuisine-list">
-        <ul>
-            <li> <a href="/italian">
-                    <h2>Italian</h2>
-                </a></li>
 
-            <li> <a href="/japanese">
-                    <h2>Japanese</h2>
-                </a></li>
-            <li> <a href="/Chinese">
-                    <h2>Chinese</h2>
-                </a> </li>
-        </ul>
-    </div>
+        {{!-- cuisine div --}}
+        <div class='category'>
 
-    <div class="cuisineContainer">
-        <div class='cuisineType'>
-            {{#each cuisineData}}
-            <a href="/{{cuisine_name}}">
-                <h2 class='cuisineName'>{{cuisine_name}}</h2>
-                <img class='cuisine' src="{{image_url}}" alt="">
-            </a>
-            {{/each}}
+            <div class='cuisineSlogan'>
+                <h2>Browse our selection</h2>
+            </div>
+
+            <div id="cuisine-list">
+                {{#each cuisineData}}
+                <div id='cuisine'>
+                    <a href="/{{cuisine_name}}">
+                        <img id='cuisinePic' src="{{image_url}}">
+                        <h2 id='cuisineName'>{{cuisine_name}}</h2>
+                    </a>
+                </div>
+                {{/each}}
+            </div>
+
+            <div id='empty'></div>
+        </div>
+
+        {{!-- DIV --}}
+
+        <div class='deliveryInfo'>
+
+                <form class="form-inline my-2 my-lg-0" id="search-cuisine">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    </form>
+                    <h2 id='all_restTitle'>Restaurants around me</h2>
+                <ul id='allRestList' style="list-style-type:none">
+                    {{#each allRestData}}
+                    <li id='allRestDiv'>
+                        <a class='filter' href="/{{cuisine}}/{{id}}">
+                            <img class='allRestImage' src="{{path_to_img}}">
+                            <h4>{{restaurants_name}}</h4>
+                        </a>
+                    </li>
+                    {{/each}}
+                </ul>
 
         </div>
+
+        {{!-- Div --}}
+
+        <div class='explore'>
+
+            <div class='row no-gutters photoBlock'>
+
+                <div class='col-md-6 col-sm-12 photoDescript'>
+                    <img id='cascade1'>
+                </div>
+
+                <div class='col-md-6 col-sm-12 photoDescript'>
+                    <div id='centered'>
+                        <h2>#Love it in my mouth</h2>
+                        <p>Get your meals and alcohol delivered in the time it takes for you to go to the bathroom and
+                            call your parents, so you can spend your time living your best life. Whether you need a
+                            handle of vodka or a gallon of vodka, we get it.</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class='row no-gutters photoBlock'>
+                <div class='col-md-6 col-sm-12 photoDescript'>
+                    <div id='centered'>
+                        <h2>All of the flavor, none of the wait.</h2>
+                        <p>No fees, just fast service. Order takeout with DDD Pickup and we’ll let you know when it’s
+                            ready.
+                            No wallet. No wait.</p>
+                    </div>
+                </div>
+
+                <div class='col-md-6 col-sxm-12 photoDescript'>
+                    <img id='cascade2'>
+                </div>
+            </div>
+
+
+            <div class='row no-gutters photoBlock'>
+
+                <div class='col-md-6 col-sm-12 photoDescript'>
+                    <img id='cascade3'>
+                </div>
+
+                <div class='col-md-6 col-sm-12 photoDescript'>
+                    <div id='centered'>
+                        <h2>Not satisfied yet? We offer add-on services.</h2>
+                        <p>Our fullstackoverflow chefs not only cook food but they can also take a look at your Visual Studio Code.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        {{!-- Div --}}
+        <div class='readyNow'>
+            <div id='readyNowInfo'>
+                <h2>Ready to order?</h2>
+                <p>Browse local restaurants and businesses available for delivery and order now!</p>
+                <button type="button" class="btn btn-dark"><a href='/login'>Sign Up Now!</a></button>
+            </div>
+
+        </div>
+
+
+
+
     </div>
 
-<a href='/secret'>Press me?</a>
+
 </body>
 
 </html>

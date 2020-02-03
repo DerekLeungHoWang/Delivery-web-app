@@ -1,4 +1,69 @@
+<div class='logsignup'>
+  <div class="cont">
+    <div class="form sign-in">
+      <h2>Hello Boss,</h2>
+      <form action='/signedin' method='post'>
+        <label>
+          <span>Email</span>
+          <input type="text" name="username" />
+        </label>
+        <label>
+          <span>Password</span>
+          <input type="password" name="password" />
+        </label>
+          <input id='submitButton' type="submit" value="Log In" />
+      </form>
+      <div class='thirdparty'>
+      <a href="/auth/facebook"><img id='icon' src='/img/facebook.svg'>Login with Facebook</a>
+      <a href="/auth/google"><img id='icon2' src='/img/google-plus.svg'>Login with Google</a>
+      </div>
+    </div>
 
+    <div class="sub-cont">
+      <div class="img">
+        <div class="img__text m--up">
+          <h2>You would like to take a gander?</h2>
+          <p>Sign up by clicking below.</p>
+        </div>
+        <div class="img__text m--in">
+          <h2>Ordering delivery again?</h2>
+          <p>You really are lazy.</p>
+        </div>
+        <div class="img__btn">
+          <span class="m--up">Sign Up</span>
+          <span class="m--in">Sign In</span>
+        </div>
+      </div>
+
+      <div class="form sign-up">
+        <h2>Love food in your mouth?</h2>
+        <form action="/signup" method="post">
+        <label>
+          <span>Email</span>
+          <input type="text" name="username" />
+        </label>
+        <label>
+          <span>Password</span>
+          <input type="password" name="password" />
+        </label>
+        <label>
+          <span>Name</span>
+          <input type="text" id="fullname" name="name" />
+        </label>
+        <label>
+          <span>Address</span>
+          <input type="text" id="address" name="address" />
+        </label>
+        <input id='submitButton' type="submit" value="Sign up"/>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{!-- 
+<div class='loginSignup'>
 
 <form action="/signedin" method="post">
   <div>
@@ -19,6 +84,6 @@
 <a href="/auth/google">Login with Google</a>
 
 <a href="/signup"><button>signup</button></a>
-<a href="/secret"><button type="button" name="button" >secret</button></a>
 
 
+</div> --}}

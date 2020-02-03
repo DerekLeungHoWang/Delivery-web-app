@@ -26,7 +26,10 @@
     "passport-google-oauth": "^2.0.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
+    "paypal-rest-sdk": "^1.8.1",
     "pg": "^7.17.1",
-    "smooth-scroll": "^16.1.1"
+    "smooth-scroll": "^16.1.1",
+    "stripe": "^8.4.0",
+    "vision": "^5.4.4"
   }
 }

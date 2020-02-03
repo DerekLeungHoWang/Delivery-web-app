@@ -14,18 +14,18 @@ module.exports = express => {
   });
 
   router.get("/login", (req, res) => {
-    res.render("logSign");
+    res.render("logSign", {layout: 'main3'});
   });
 
-  router.get("/signup", (req, res) => {
-    res.render("signup");
-  });
+  // router.get("/signup", (req, res) => {
+  //   res.render("signup");
+  // });
 
 	router.post(
 		"/signedin",
 		passport.authenticate("local-login", {
-			successRedirect: "/",
-			failureRedirect: "/error"
+			successRedirect: "/", 
+      failureRedirect: "/login"
 		})
 	);
 
@@ -38,11 +38,11 @@ module.exports = express => {
 		passport.authenticate("local-signup", {
 			successRedirect: "/",
 			failureRedirect: "/error"
-		})
+    })
 	);
 
 	router.get("/error", (req, res) => {
-		res.send("You are not logged in!");
+		res.send("ERRRRRRRRRRORRRRRR");
 	});
 
   router.get('/logout', (req, res)=>{
