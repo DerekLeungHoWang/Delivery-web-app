@@ -1,9 +1,7 @@
-// const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("./bcrypt.js");
 
 require("dotenv").config();
-
 const knex = require("knex")({
   client: "postgresql",
   connection: {
@@ -38,9 +36,10 @@ module.exports = passport => {
   
   passport.use(
     "local-signup",
-    new LocalStrategy(async (email, password, done) => {
+    new LocalStrategy({passReqToCallback: true}, async (req,email, password, done) => {  //passReqToCallback: true enable req to be passed as argument
+     console.log('lineeee42');
+     console.log(req.body); 
       try {
-        console.log('trying to signup')
         let users = await knex("users").where({ email: email });
         if (users.length > 0) {
           return done(null, false, { message: "Email already taken" });
@@ -48,8 +47,9 @@ module.exports = passport => {
         let hash = await bcrypt.hashPassword(password);
         const newUser = {
           email: email,
-          password: hash
-          
+          password: hash,
+          full_name:req.body.name,
+          address:req.body.address
         };
         let userId = await knex("users")
           .insert(newUser)

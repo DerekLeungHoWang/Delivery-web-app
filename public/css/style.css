@@ -1196,7 +1196,7 @@ canvas {
 	-ms-animation: topToBottom 10s linear infinite 0s;
 	-webkit-animation: topToBottom 10s linear infinite 0s;
   color: #000000;
-  font-size: 100px; 
+  font-size: 80px; 
 	opacity: 0;
 	overflow: hidden;
 	position: absolute;
