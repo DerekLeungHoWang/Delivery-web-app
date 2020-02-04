@@ -38,7 +38,6 @@ var ordersTemplate = Handlebars.compile(
 class displayCart {
   constructor() {
     this.order = this.getOrder();
-
   }
 
   //=====================GETTING ALL ITEMS PRICE
@@ -108,8 +107,7 @@ class displayCart {
 
       foodArr.push(order_obj);
     }
-    console.log(foodArr,'foodArr 111  ');
-    
+    console.log(foodArr, "foodArr 111  ");
 
     return foodArr;
   }
@@ -330,12 +328,33 @@ $(".checkout-form").submit(e => {
     });
   });
 
-  return Promise.all([promiseA, promiseB]).then(function([
-    responseA,
-    responseB
-  ]) {
-    console.log("all done");
-  });
+  return Promise.all([promiseA, promiseB])
+    .then(function([responseA, responseB]) {
+      console.log("all done");
+    })
+    .then(() => {
+      localStorage.clear();
+
+      $("#orders").html(`<div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
+      <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+        <span class="swal2-success-line-tip"></span>
+        <span class="swal2-success-line-long"></span>
+        <div class="swal2-success-ring"></div> 
+        <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+        <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+       </div>`)
+    });
+});
+
+$(document).ready(function() {
+  var pageURL = $(location).attr("href");
+  if (
+    pageURL === "https://localhost:2000/cart" && localStorage.foodArr == undefined) {
+    onbeforeunload = function(e) {
+      localStorage.clear();
+      return "sdfsdfsdf";
+    };
+  }
 });
 
 ///========================================================Promise all

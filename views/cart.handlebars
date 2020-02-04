@@ -1,55 +1,75 @@
- <div id='cartBanner'></div>
+<div id='cartBanner'></div>
 
 <div class='shoppingCart'>
-<div class="cart-area">
+  <div class="cart-area">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <table class="table table-responsive">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Product</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total</th>
-                        </tr>
-                    </thead>  
-                    <tbody id="orders">
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-responsive">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody id="orders">
 
-                    </tbody>
+            </tbody>
 
-                </table>
-                
-                <div class="total">
-                   
-                  {{!-- <a href="/cart/checkout"> --}}
+          </table>
 
-                 <form class="checkout-form" action="/api/orders" method="post">
-                  <button type="submit"  class="checkout-btn" >Confirm</button>
-                  </form>
+          <div class="total">
 
-                  {{!-- </a>   --}}
-                    
+            {{!-- <a href="/cart/checkout"> --}}
+
+            <form class="checkout-form" action="/api/orders" method="post">
+              <button data-toggle="modal" data-target="#myModal" type="submit"
+                class="checkout-btn">Confirm</button>
+            </form>
+
+
+            <!-- Modal HTML -->
+            <div id="myModal" class="modal fade">
+              <div class="modal-dialog modal-confirm">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <div class="icon-box">
+                      <i class="material-icons">&#xE876;</i>
+                    </div>
+                    <h4 class="modal-title">Awesome!</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p class="text-center">Your order has been confirmed. Click <a href="/userprofile" >HERE</a>to view.</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                  </div>
+                  
                 </div>
-                <div class="grand-total">
-                    <div>Grand Total:</div>
-                    <div class="grand-total-value"></div>
-                </div>
+              </div>
             </div>
-        </div>
-    </div>
-</div>
 
- 
+            {{!-- </a>   --}}
+
+          </div>
+          <div class="grand-total">
+            <div>Grand Total:</div>
+            <div class="grand-total-value"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <form id='chargeButton' action="/charge" method="POST">
-    <script
-      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-      data-key="pk_test_6qEf5kpQz6SeggIgjRaqFwvN00ZSYazPqz"
-      data-name="DDD"
-      data-description="Your Order"
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="pk_test_6qEf5kpQz6SeggIgjRaqFwvN00ZSYazPqz" data-name="DDD" data-description="Your Order"
       data-image="https://images.unsplash.com/photo-1554630981-a73ffb5ed6f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80"
       data-locale="auto">
-    </script>
+      </script>
   </form>
 
 </div>

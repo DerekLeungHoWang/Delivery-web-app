@@ -248,7 +248,7 @@ app.get("/userprofile/orderHistory", (req, res) => {
         food_name: row.food_name,
         food_price: row.food_price,
         amount: row.amount,
-        order_id: row.order_id
+        order_id: row.order_id,
       }));
 
 
