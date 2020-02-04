@@ -347,6 +347,10 @@ $(".checkout-form").submit(e => {
     });
 });
 
+// $(document).ready(()=>{
+
+
+
 
   var pageURL = $(location).attr("href");
   if (
@@ -360,11 +364,14 @@ $(".checkout-form").submit(e => {
         pageURL === "https://localhost:2000/cart" &&
         localStorage.length>1
       ){
+        localStorage.clear()
         return "sdfsdfsdf";
       }
      
     };
   }
+// })
+
 
 
 ///========================================================Promise all
