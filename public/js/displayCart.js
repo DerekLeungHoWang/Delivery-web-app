@@ -335,27 +335,37 @@ $(".checkout-form").submit(e => {
     .then(() => {
       localStorage.clear();
 
-      $("#orders").html(`<div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
+      $("#orders")
+        .html(`<div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
       <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
         <span class="swal2-success-line-tip"></span>
         <span class="swal2-success-line-long"></span>
         <div class="swal2-success-ring"></div> 
         <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
         <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
-       </div>`)
+       </div>`);
     });
 });
 
-$(document).ready(function() {
+
   var pageURL = $(location).attr("href");
   if (
-    pageURL === "https://localhost:2000/cart" && localStorage.foodArr == undefined) {
+    pageURL === "https://localhost:2000/cart" &&
+    localStorage.length>1
+  ) {
+    console.log('33');
+
     onbeforeunload = function(e) {
-      localStorage.clear();
-      return "sdfsdfsdf";
+      if (
+        pageURL === "https://localhost:2000/cart" &&
+        localStorage.length>1
+      ){
+        return "sdfsdfsdf";
+      }
+     
     };
   }
-});
+
 
 ///========================================================Promise all
 
