@@ -174,11 +174,12 @@ app.get("/userprofile", (req, res) => {
 
   query.then(rows => {
     console.log(rows);
+    console.log("ppppppppppppppppppppppppppppppppppppppppppppppppp");
 
     console.log(rows.length);
 
     if (rows.length > 0) {
-      console.log(rows, "line146");
+      // console.log(rows, "line146");
       console.log(rows.slice(-1)[0].order_id);
 
       const ordersToInsert = rows.map(row => ({
@@ -189,11 +190,10 @@ app.get("/userprofile", (req, res) => {
         order_id: row.order_id
       }));
 
-      let ordersToInsert_final = []
+      let ordersToInsert_final = [];
       for (let i = 0; i < ordersToInsert.length; i++) {
         if (ordersToInsert[i].order_id == rows.slice(-1)[0].order_id) {
-
-          ordersToInsert_final.push(ordersToInsert[i])
+          ordersToInsert_final.push(ordersToInsert[i]);
           console.log(
             ordersToInsert[i],
             "***************************************************************"
@@ -201,14 +201,18 @@ app.get("/userprofile", (req, res) => {
         }
       }
       console.log(ordersToInsert_final);
-      
+
       res.render("userprofile", {
         layout: "main2",
         email: req.session.passport.user.email,
         full_name: req.session.passport.user.full_name,
         address: req.session.passport.user.address,
         ordersToInsert_final,
-        grand_total: rows.slice(-1)[0].amount
+        grand_total: rows.slice(-1)[0].amount,
+        orderID: rows.slice(-1)[0].order_id,
+        created_at: rows.slice(-1)[0].created_at,
+        restaurants_id: rows.slice(-1)[0].restaurants_id,
+        user_id: rows.slice(-1)[0].user_id
       });
     } else {
       res.render("userprofile", {
@@ -218,6 +222,64 @@ app.get("/userprofile", (req, res) => {
         address: req.session.passport.user.address
       });
     }
+  });
+});
+
+app.get("/userprofile/orderHistory", (req, res) => {
+  let query2 = knex
+    .from("order_items")
+    .innerJoin("orders", "order_items.order_id", "orders.id")
+    .innerJoin("users", "orders.user_id", "users.id")
+    .innerJoin("food_item", "order_items.food_item_id", "food_item.id")
+    .where("users.id", req.session.passport.user.id);
+
+  query2.then( async rows => {
+    console.log(rows);
+    console.log("ppppppppppppppppppppppppppppppppppppppppppppppppp");
+
+    console.log(rows.length);
+
+   
+      // console.log(rows, "line146");
+      // console.log(rows.slice(-1)[0].order_id);
+
+      const ordersToInsert2 = rows.map(row => ({
+        quantity: row.quantity,
+        food_name: row.food_name,
+        food_price: row.food_price,
+        amount: row.amount,
+        order_id: row.order_id
+      }));
+
+
+      // let count = 0;
+      // for (let i = 0; i < ordersToInsert2.length; i++) {
+      //   if (ordersToInsert2[i].order_id == rows.slice(-1)[0].order_id) {
+      //     // ordersToInsert_final.push(ordersToInsert[i]);
+      //     console.log(ordersToInsert2[i]);
+      //     count += 1;
+      //     console.log(
+      //       "***************************************************************for history"
+      //     );
+      //   }
+      // }
+      // console.log(count, "line266");
+
+      // console.log(ordersToInsert2.splice(count, count));
+
+      // let ordersToInsert_final2 = await ordersToInsert2.splice(-count, count);
+
+      // console.log(ordersToInsert_final);
+
+      res.render("orderHistory", {
+        layout: "main2",
+        ordersToInsert2,
+        email: req.session.passport.user.email,
+        full_name: req.session.passport.user.full_name,
+        address: req.session.passport.user.address,
+
+      });
+    
   });
 });
 

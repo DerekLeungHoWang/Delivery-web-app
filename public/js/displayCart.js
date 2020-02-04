@@ -38,7 +38,7 @@ var ordersTemplate = Handlebars.compile(
 class displayCart {
   constructor() {
     this.order = this.getOrder();
-    this.previous = {};
+
   }
 
   //=====================GETTING ALL ITEMS PRICE
@@ -108,6 +108,8 @@ class displayCart {
 
       foodArr.push(order_obj);
     }
+    console.log(foodArr,'foodArr 111  ');
+    
 
     return foodArr;
   }
@@ -309,7 +311,6 @@ $(document).on("click", "#loginButton", e => {
   localStorage.clear();
 });
 
-
 ///========================================================Promise all
 
 $(".checkout-form").submit(e => {
@@ -317,28 +318,25 @@ $(".checkout-form").submit(e => {
   let data_final = newOrder.reloadOrders();
   console.log("clicked this");
 
-  let promiseA = axios
-  .post("/api/orders", {
+  let promiseA = axios.post("/api/orders", {
     content: data_final
-  })
+  });
 
-  let promiseB = promiseA.then((responseA) => {
+  let promiseB = promiseA.then(responseA => {
     console.log("done");
-    
-    axios
-    .post("/api/order_item", {
+
+    axios.post("/api/order_item", {
       content: data_final
-    })
- })
+    });
+  });
 
- return Promise.all([promiseA, promiseB]).then(function([responseA, responseB]) {
-  console.log('all done');
-  
+  return Promise.all([promiseA, promiseB]).then(function([
+    responseA,
+    responseB
+  ]) {
+    console.log("all done");
+  });
 });
-
-    
-});
-
 
 ///========================================================Promise all
 
@@ -352,12 +350,11 @@ $(".checkout-form").submit(e => {
 //     })
 //     .then(res => {
 //       console.log("checkingout");
-  
+
 //     })
 //     .catch(err => {
 //       console.log(err);
 //     });
-
 
 //     axios
 //     .post("/api/order_item", {
@@ -366,7 +363,7 @@ $(".checkout-form").submit(e => {
 //     .catch(err => {
 //       console.log(err);
 //     });
-    
+
 // });
 
 ///========================================================Promise all
@@ -389,13 +386,10 @@ $(".checkout-form").submit(e => {
 
 //  return Promise.all([promiseA, promiseB]).then(function([responseA, responseB]) {
 //   console.log('all done');
-  
+
 // });
 
-    
 // });
-
-
 
 ///========================================================Promise all
 
@@ -422,7 +416,7 @@ $(".checkout-form").submit(e => {
 //   .then(axios.spread(function (acct, perms) {
 //     // Both requests are now complete
 //     console.log('completed');
-    
+
 //   }));
 
 // });

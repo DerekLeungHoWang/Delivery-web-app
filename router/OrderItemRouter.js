@@ -43,7 +43,7 @@ class OrderItemRouter {
       .add(req.body.content)
       .then(data => {
         console.log("getting here 47");
-        console.log(data, "line==--=-=-=-=-=-=--=-=-=-=-=-=");
+        console.log("line==--=-=-=-=-=-=--=-=-=-=-=-=");
 
         res.json(data);
       })
